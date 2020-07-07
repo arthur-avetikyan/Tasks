@@ -78,13 +78,13 @@ namespace TaskOne
         }
 
         //TODO optimize this
-        public void RemoveAtIndex(int itemIndex)
+        public void RemoveAtIndex(int index)
         {
-            CheckRangeOfIndex(itemIndex);
+            CheckRangeOfIndex(index);
 
             T[] lTempArray = _collection;
             Length--;
-            for (int i = itemIndex; i < lTempArray.Length - 1; i++)
+            for (int i = index; i < lTempArray.Length - 1; i++)
             {
                 _collection[i] = lTempArray[i + 1];
             }
@@ -154,12 +154,12 @@ namespace TaskOne
 
         private bool SortInnerLoop(Predicate<int> predicate)
         {
-            bool lIsChnaged = true;
+            bool lIsUnchnaged = true;
             for (int i = 0; i < Length - 1; i++)
             {
-                CheckChangesInSortOrder(predicate, i, ref lIsChnaged);
+                CheckChangesInSortOrder(predicate, i, ref lIsUnchnaged);
             }
-            return lIsChnaged;
+            return lIsUnchnaged;
         }
 
         private void CheckChangesInSortOrder(Predicate<int> predicate, int index, ref bool swapOccured)
