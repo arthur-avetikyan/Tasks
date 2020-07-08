@@ -1,56 +1,52 @@
 ﻿using System;
+using System.IO;
+using System.Linq;
 
-namespace TaskOne
+namespace Writer
 {
-    public enum InputMethod
+    public enum InputOption
     {
         Group = 1,
         Individual = 2
     }
 
+    public enum DeleteOption
+    {
+        Yes = 1,
+        No = 2
+    }
 
     public static class InputHelper
     {
+        #region Option Selector
 
-        #region Input Method Selector
-
-        public static InputMethod SelectInputMethod()
+        public static T SelectOption<T>() where T : struct, Enum
         {
-            bool lSuccess = false;
-            InputMethod lInputMethod = InputMethod.Group;
-            while (!lSuccess)
+            T lOption;
+            bool lSuccess;
+            do
             {
-                lSuccess = ValidateInputMethod(ref lInputMethod);
+                lSuccess = GetValidOption(out lOption);
             }
-            return lInputMethod;
+            while (!lSuccess);
+
+            return lOption;
         }
 
-        private static bool ValidateInputMethod(ref InputMethod inputMethod)
+        private static bool GetValidOption<T>(out T option) where T : struct, Enum
         {
-            int lMethod = ReceiveInputMethod();
-
-            if (Enum.IsDefined(typeof(InputMethod), lMethod))
-            {
-                inputMethod = (InputMethod)lMethod;
-                return true;
-            }
-            return false;
+            Console.WriteLine($"Choose input method: {Environment.NewLine} Yes -> 1 {Environment.NewLine} No -> 2");
+            return Enum.TryParse(Console.ReadLine(), true, out option) && Enum.IsDefined(typeof(T), option);
         }
 
-        private static int ReceiveInputMethod()
-        {
-            Console.WriteLine($"Choose input method: {Environment.NewLine} Group -> 1 {Environment.NewLine} Individual -> 2");
-            return int.Parse(Console.ReadLine());
-        }
-
-        public static void ReceiveNumberInputs(MyList<string> inputedList, InputMethod inputMethod)
+        public static void ReceiveNumberInputs(MyList<string> inputedList, InputOption inputMethod)
         {
             switch (inputMethod)
             {
-                case InputMethod.Group:
+                case InputOption.Group:
                     ReceiveNumbersByGroup(inputedList);
                     break;
-                case InputMethod.Individual:
+                case InputOption.Individual:
                     ReceiveNumbersIdividually(inputedList);
                     break;
             }
@@ -62,7 +58,7 @@ namespace TaskOne
 
         public static void ReceiveNumbersByGroup(MyList<string> inputedList)
         {
-            Console.WriteLine($"Please input numbers separated with comma (',') in order to save them in the text file.");
+            Console.WriteLine(UITexts._groupNumberInputRequestMessage);
             string[] lInput = Console.ReadLine().Split(',');
 
             AddNumbersByGroup(inputedList, lInput);
@@ -84,9 +80,9 @@ namespace TaskOne
         {
             for (int i = 0; i < lInput.Length; i++)
             {
-                if (!int.TryParse(lInput[i], out _))
+                if (!double.TryParse(lInput[i], out _))
                 {
-                    Console.WriteLine($"Inputed symbols contain non-numeric charaters.");
+                    Console.WriteLine(UITexts._invalidInputMessage);
                     return false;
                 }
             }
@@ -105,16 +101,18 @@ namespace TaskOne
             AddNumbersIdividually(inputedList, lCounter);
         }
 
-        private static void AddNumbersIdividually(MyList<string> inputedList, int lCounter)
+        private static void AddNumbersIdividually(MyList<string> inputedList, int counter)
         {
-            while (lCounter > 0)
+            while (counter > 0)
             {
                 string lInput = Console.ReadLine();
-                if (int.TryParse(lInput, out _))
+                if (double.TryParse(lInput, out _))
                 {
                     inputedList.Add(lInput);
+                    counter--;
                 }
-                lCounter--;
+                else
+                    Console.WriteLine(UITexts._invalidInputMessage);
             }
         }
 
@@ -124,8 +122,8 @@ namespace TaskOne
             int lCounter;
             do
             {
-                Console.WriteLine("Please input total count of numbers that you want to save.");
-                lIsValid = int.TryParse(Console.ReadLine(), out lCounter);
+                Console.WriteLine(UITexts._itemCountRequestMessage);
+                lIsValid = int.TryParse(Console.ReadLine(), out lCounter) && lCounter > 0;
             }
             while (!lIsValid);
             return lCounter;
@@ -133,21 +131,60 @@ namespace TaskOne
 
         #endregion
 
-        #region Folder and File Input Helpers
-
-        public static string ReceiveFileName()
-        {
-            Console.WriteLine($"{Environment.NewLine}Please select file: ");
-            return Console.ReadLine();
-        }
+        #region Folder and File Input 
 
         public static string ReceiveDirectoryName()
         {
-            Console.WriteLine($"{Environment.NewLine}Please select folder: ");
-            return Console.ReadLine();
+            string lDirectoryNameInput;
+            do
+            {
+                Console.WriteLine($"{Environment.NewLine}{UITexts._folderNameRequsetMessage}");
+                lDirectoryNameInput = Console.ReadLine();
+            }
+            while (IsNotValidName(lDirectoryNameInput));
+            return lDirectoryNameInput;
+        }
+
+        public static string ReceiveFileName()
+        {
+            string lFileNameInput;
+            do
+            {
+                Console.WriteLine($"{Environment.NewLine}{UITexts._fileNameRequsetMessage}");
+                lFileNameInput = Console.ReadLine();
+            }
+            while (IsNotValidName(lFileNameInput));
+            return lFileNameInput;
+        }
+
+        private static bool IsNotValidName(string nameInput)
+        {
+            if (IsEmpty(nameInput))
+                return true;
+            if (HasInvalidSymbols(nameInput, Path.GetInvalidPathChars()))
+                return true;
+            if (HasInvalidSymbols(nameInput, Path.GetInvalidFileNameChars()))
+                return true;
+            return false;
+        }
+
+        private static bool IsEmpty(string input)
+        {
+            return string.IsNullOrWhiteSpace(input) || input.StartsWith(" ");
+        }
+
+        private static bool HasInvalidSymbols(string input, char[] symbols)
+        {
+            foreach (var item in input)
+            {
+                if (symbols.Contains(item))
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         #endregion
     }
 }
-

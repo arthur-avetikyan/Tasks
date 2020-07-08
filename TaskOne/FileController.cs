@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-namespace TaskOne
+namespace Writer
 {
     public class FileController
     {

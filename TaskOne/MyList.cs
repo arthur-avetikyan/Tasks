@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace TaskOne
+namespace Writer
 {
     public class MyList<T> : IEnumerable<T>
     {
