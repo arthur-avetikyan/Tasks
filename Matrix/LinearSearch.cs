@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Matrix
 {
-    public static class SearchWithLoops<T>
+    public static class LinearSearch<T>
     {
         public static HashSet<T> FindDublicatesInMatrix(T[,] lMatrix)
         {

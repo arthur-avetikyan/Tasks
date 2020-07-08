@@ -12,7 +12,7 @@ namespace Matrix
         {
             int[,] lMatrix = new int[4, 4] { { 61, 5, 66, 8 }, { 17, 8, 92, 27 }, { 27, 32, 43, 5 }, { 64, 32, 64, 85 } };
 
-            HashSet<int> lDublicates = SearchWithLoops<int>.FindDublicatesInMatrix(lMatrix);
+            HashSet<int> lDublicates = LinearSearch<int>.FindDublicatesInMatrix(lMatrix);
 
             foreach (int item in lDublicates)
             {
