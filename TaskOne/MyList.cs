@@ -116,7 +116,7 @@ namespace TaskOne
             bool lIsSorted = false;
             for (int y = 0; y < Length - 1 && !lIsSorted; y++)
             {
-                lIsSorted = SortInnerLoop(IsGreater);
+                lIsSorted = SortInnerLoop(x => x > 0);
             }
         }
 
@@ -126,7 +126,7 @@ namespace TaskOne
             bool lIsSorted = false;
             for (int y = 0; y < Length && !lIsSorted; y++)
             {
-                lIsSorted = SortInnerLoop(IsLesser);
+                lIsSorted = SortInnerLoop(x => x < 0);
             }
         }
 
@@ -188,9 +188,6 @@ namespace TaskOne
             _collection[index] = _collection[index + 1];
             _collection[index + 1] = lTempItem;
         }
-
-        private Predicate<int> IsGreater = val => val > 0;
-        private Predicate<int> IsLesser = val => val < 0;
 
         #endregion
 
