@@ -39,24 +39,30 @@ namespace OperationManager
         {
             Console.WriteLine($"{UITexts._numberInputRequest}");
             string[] lInput = Console.ReadLine().Split(new char[] { ',', ' ' }, StringSplitOptions.RemoveEmptyEntries);
-            
-             ApplyNumbers(operations, lInput);
+
+            ApplyNumbers(operations, lInput);
         }
 
-        private static void ApplyNumbers(List<IOperation> operations, string[] lInput)
+        private static void ApplyNumbers(List<IOperation> operations, string[] input)
         {
-            double[] lNumbers = new double[lInput.Length];
-            if (ValidateGroupNumericInputs(lInput, ref lNumbers))
+            double[] lNumbers = new double[input.Length];
+            if (ValidateGroupNumericInputs(input, ref lNumbers))
                 PerformOperation(operations, lNumbers);
             else
                 ReceiveNumbersInput(operations);
         }
 
-        private static bool ValidateGroupNumericInputs(string[] lInput, ref double[] numbers)
+        private static bool ValidateGroupNumericInputs(string[] input, ref double[] numbers)
         {
-            for (int i = 0; i < lInput.Length; i++)
+            if (input.Length != 2)
             {
-                if (!double.TryParse(lInput[i], out numbers[i]))
+                Console.WriteLine(UITexts._invalidNumbersCountMessage);
+                return false;
+            }
+
+            for (int i = 0; i < input.Length; i++)
+            {
+                if (!double.TryParse(input[i], out numbers[i]))
                 {
                     Console.WriteLine(UITexts._invalidNumbersInputMessage);
                     return false;

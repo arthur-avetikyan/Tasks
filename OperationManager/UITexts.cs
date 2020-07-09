@@ -9,6 +9,7 @@
 
         public const string _invalidOptionsInputMessage = "Inputed operation does not exists, Please try again.";
         public const string _invalidNumbersInputMessage = "Inputed symbols contain non-numeric charaters, Please try again.";
+        public const string _invalidNumbersCountMessage = "You should input exaxtly 2 numbers, Please try again.";
 
         public const string _resultMessage = "Result of the operation: ";
     }
