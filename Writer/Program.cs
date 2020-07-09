@@ -10,11 +10,11 @@ namespace Writer
             MyList<string> lInputedList = new MyList<string>();
             FileController lFileController = new FileController();
             InputOption lInputOption;
+            DeleteOption lDeleteOption;
             string lCurrentDirectory;
             string lCurrentFile;
 
-            Console.WriteLine(UITexts._userGreeting);
-
+            InputHelper.ReqestInputOption();
             lInputOption = InputHelper.SelectOption<InputOption>();
             InputHelper.ReceiveNumberInputs(lInputedList, lInputOption);
             lInputedList.SortByAscending();
@@ -24,6 +24,11 @@ namespace Writer
             lFileController.WriteDataToTextFile(lCurrentFile, lInputedList);
 
             Console.WriteLine($"{Environment.NewLine} {UITexts._successMessage} {lCurrentFile}");
+
+            InputHelper.RequestDeleteOption();
+            lDeleteOption = InputHelper.SelectOption<DeleteOption>();
+            lFileController.CleanUpFilesAndFolders(lDeleteOption, lCurrentDirectory);
+
             Console.ReadLine();
         }
     }

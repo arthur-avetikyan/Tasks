@@ -20,6 +20,16 @@ namespace Writer
     {
         #region Option Selector
 
+        public static void ReqestInputOption()
+        {
+            Console.WriteLine(UITexts._userGreeting);
+            Console.WriteLine($"{UITexts._inputOptionRequestMessage}{Environment.NewLine} {InputOption.Group} -> 1 {Environment.NewLine} {InputOption.Individual} -> 2");
+        }
+        public static void RequestDeleteOption()
+        {
+            Console.WriteLine($"{Environment.NewLine}{UITexts._deleteOptionRequestMessage}{Environment.NewLine} {DeleteOption.Yes} -> 1 {Environment.NewLine} {DeleteOption.No} -> 2");
+        }
+
         public static T SelectOption<T>() where T : struct, Enum
         {
             T lOption;
@@ -27,15 +37,15 @@ namespace Writer
             do
             {
                 lSuccess = GetValidOption(out lOption);
+                if (!lSuccess)
+                    Console.WriteLine(UITexts._invalidOptionsInputMessage);
             }
             while (!lSuccess);
-
             return lOption;
         }
 
         private static bool GetValidOption<T>(out T option) where T : struct, Enum
         {
-            Console.WriteLine($"Choose input method: {Environment.NewLine} Yes -> 1 {Environment.NewLine} No -> 2");
             return Enum.TryParse(Console.ReadLine(), true, out option) && Enum.IsDefined(typeof(T), option);
         }
 
@@ -67,13 +77,9 @@ namespace Writer
         private static void AddNumbersByGroup(MyList<string> inputedList, string[] lInput)
         {
             if (ValidateGroupNumericInputs(lInput))
-            {
                 inputedList.AddRange(lInput);
-            }
             else
-            {
                 ReceiveNumbersByGroup(inputedList);
-            }
         }
 
         private static bool ValidateGroupNumericInputs(string[] lInput)
@@ -82,7 +88,7 @@ namespace Writer
             {
                 if (!double.TryParse(lInput[i], out _))
                 {
-                    Console.WriteLine(UITexts._invalidInputMessage);
+                    Console.WriteLine(UITexts._invalidNumbersInputMessage);
                     return false;
                 }
             }
@@ -112,7 +118,7 @@ namespace Writer
                     counter--;
                 }
                 else
-                    Console.WriteLine(UITexts._invalidInputMessage);
+                    Console.WriteLine(UITexts._invalidNumbersInputMessage);
             }
         }
 
@@ -138,7 +144,7 @@ namespace Writer
             string lDirectoryNameInput;
             do
             {
-                Console.WriteLine($"{Environment.NewLine}{UITexts._folderNameRequsetMessage}");
+                Console.WriteLine($"{Environment.NewLine}{UITexts._folderNameRequestMessage}");
                 lDirectoryNameInput = Console.ReadLine();
             }
             while (IsNotValidName(lDirectoryNameInput));
@@ -150,7 +156,7 @@ namespace Writer
             string lFileNameInput;
             do
             {
-                Console.WriteLine($"{Environment.NewLine}{UITexts._fileNameRequsetMessage}");
+                Console.WriteLine($"{Environment.NewLine}{UITexts._fileNameRequestMessage}");
                 lFileNameInput = Console.ReadLine();
             }
             while (IsNotValidName(lFileNameInput));

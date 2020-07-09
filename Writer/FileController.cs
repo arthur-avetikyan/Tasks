@@ -55,5 +55,17 @@ namespace Writer
                 return filePath;
             }
         }
+
+        public void CleanUpFilesAndFolders(DeleteOption deleteOption, string currentDirectory)
+        {
+            if (deleteOption == DeleteOption.No)
+                return;
+            RemoveCreatedFolderAndContents(currentDirectory);
+        }
+
+        private void RemoveCreatedFolderAndContents(string currentDirectory)
+        {
+            Directory.Delete(currentDirectory, true);
+        }
     }
 }
