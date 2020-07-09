@@ -8,13 +8,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Writer", "Writer\Writer.csproj", "{611006C2-CEDD-41C4-AE10-53002004B71C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Operation Libraries", "Operation Libraries", "{2BFBEA1E-8A5A-42BC-BBB1-041C541DF4F0}"
-	ProjectSection(SolutionItems) = preProject
-		Operation Libraries\Addition\Addition.csproj = Operation Libraries\Addition\Addition.csproj
-		Operation Libraries\Division\Division.csproj = Operation Libraries\Division\Division.csproj
-		Operation Libraries\Multiplication\Multiplication.csproj = Operation Libraries\Multiplication\Multiplication.csproj
-		Operation Libraries\Operation\Operation.csproj = Operation Libraries\Operation\Operation.csproj
-		Operation Libraries\Subtraction\Subtraction.csproj = Operation Libraries\Subtraction\Subtraction.csproj
-	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OperationManager", "OperationManager\OperationManager.csproj", "{BE30CF2A-D23A-4644-A0A8-2B0F21D916BF}"
 EndProject
@@ -26,6 +19,16 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Plugins", "Plugins", "{5B47
 		Plugins\Operation.dll = Plugins\Operation.dll
 		Plugins\Subtraction.dll = Plugins\Subtraction.dll
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Addition", "Operation Libraries\Addition\Addition.csproj", "{F550F169-ED57-455E-BEC7-A49F5CE32CFD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Division", "Operation Libraries\Division\Division.csproj", "{BFD8DC4B-E4E6-4333-AB0B-6D70131E6EFB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Multiplication", "Operation Libraries\Multiplication\Multiplication.csproj", "{D0C1A49C-300B-4000-A3C5-98039D5FC7B6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Operation", "Operation Libraries\Operation\Operation.csproj", "{BAFB0441-44D0-4293-B664-9423FDF2AAC9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Subtraction", "Operation Libraries\Subtraction\Subtraction.csproj", "{C680A427-FD3E-4193-B448-9DB825C94539}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,9 +48,36 @@ Global
 		{BE30CF2A-D23A-4644-A0A8-2B0F21D916BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BE30CF2A-D23A-4644-A0A8-2B0F21D916BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BE30CF2A-D23A-4644-A0A8-2B0F21D916BF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F550F169-ED57-455E-BEC7-A49F5CE32CFD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F550F169-ED57-455E-BEC7-A49F5CE32CFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F550F169-ED57-455E-BEC7-A49F5CE32CFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F550F169-ED57-455E-BEC7-A49F5CE32CFD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BFD8DC4B-E4E6-4333-AB0B-6D70131E6EFB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BFD8DC4B-E4E6-4333-AB0B-6D70131E6EFB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BFD8DC4B-E4E6-4333-AB0B-6D70131E6EFB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BFD8DC4B-E4E6-4333-AB0B-6D70131E6EFB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D0C1A49C-300B-4000-A3C5-98039D5FC7B6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D0C1A49C-300B-4000-A3C5-98039D5FC7B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D0C1A49C-300B-4000-A3C5-98039D5FC7B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D0C1A49C-300B-4000-A3C5-98039D5FC7B6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BAFB0441-44D0-4293-B664-9423FDF2AAC9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BAFB0441-44D0-4293-B664-9423FDF2AAC9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BAFB0441-44D0-4293-B664-9423FDF2AAC9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BAFB0441-44D0-4293-B664-9423FDF2AAC9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C680A427-FD3E-4193-B448-9DB825C94539}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C680A427-FD3E-4193-B448-9DB825C94539}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C680A427-FD3E-4193-B448-9DB825C94539}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C680A427-FD3E-4193-B448-9DB825C94539}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{F550F169-ED57-455E-BEC7-A49F5CE32CFD} = {2BFBEA1E-8A5A-42BC-BBB1-041C541DF4F0}
+		{BFD8DC4B-E4E6-4333-AB0B-6D70131E6EFB} = {2BFBEA1E-8A5A-42BC-BBB1-041C541DF4F0}
+		{D0C1A49C-300B-4000-A3C5-98039D5FC7B6} = {2BFBEA1E-8A5A-42BC-BBB1-041C541DF4F0}
+		{BAFB0441-44D0-4293-B664-9423FDF2AAC9} = {2BFBEA1E-8A5A-42BC-BBB1-041C541DF4F0}
+		{C680A427-FD3E-4193-B448-9DB825C94539} = {2BFBEA1E-8A5A-42BC-BBB1-041C541DF4F0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B8A92D35-C028-4571-8CAC-329530499FBD}

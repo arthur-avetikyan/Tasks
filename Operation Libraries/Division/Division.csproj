@@ -45,7 +45,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\IOperation\Operation.csproj">
+    <ProjectReference Include="..\Operation\Operation.csproj">
       <Project>{BAFB0441-44D0-4293-B664-9423FDF2AAC9}</Project>
       <Name>Operation</Name>
     </ProjectReference>
