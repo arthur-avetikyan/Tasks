@@ -1,12 +1,23 @@
 ﻿using Operation;
 using System;
+using System.Runtime.Remoting.Messaging;
 
 namespace Division
 {
     public class Divide : IOperation
     {
-        public int Operate(int arg0, int arg1) => arg0 / arg1;
+        public string OperationName => "Divide";
 
-        public double Operate(double arg0, double arg1) => arg0 / arg1;
+        public string OperationSymbol => "/";
+
+        public double Operate(params double[] numbers)
+        {
+            double lResult = numbers[0];
+            for (int i = 1; i < numbers.Length; i++)
+            {
+                lResult /= numbers[i];
+            }
+            return lResult;
+        }
     }
 }

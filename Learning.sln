@@ -11,15 +11,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Operation Libraries", "Oper
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OperationManager", "OperationManager\OperationManager.csproj", "{BE30CF2A-D23A-4644-A0A8-2B0F21D916BF}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Plugins", "Plugins", "{5B471D26-C8F0-4DB7-8EC3-220FF6EA17FF}"
-	ProjectSection(SolutionItems) = preProject
-		Plugins\Addition.dll = Plugins\Addition.dll
-		Plugins\Division.dll = Plugins\Division.dll
-		Plugins\Multiplication.dll = Plugins\Multiplication.dll
-		Plugins\Operation.dll = Plugins\Operation.dll
-		Plugins\Subtraction.dll = Plugins\Subtraction.dll
-	EndProjectSection
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Addition", "Operation Libraries\Addition\Addition.csproj", "{F550F169-ED57-455E-BEC7-A49F5CE32CFD}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Division", "Operation Libraries\Division\Division.csproj", "{BFD8DC4B-E4E6-4333-AB0B-6D70131E6EFB}"
@@ -29,6 +20,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Operation", "Operation Libraries\Operation\Operation.csproj", "{BAFB0441-44D0-4293-B664-9423FDF2AAC9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Subtraction", "Operation Libraries\Subtraction\Subtraction.csproj", "{C680A427-FD3E-4193-B448-9DB825C94539}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Deferred", "Deferred\Deferred.csproj", "{6FC083E0-5A3A-4C12-9D67-8DDB8C7ACE49}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -68,6 +61,10 @@ Global
 		{C680A427-FD3E-4193-B448-9DB825C94539}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C680A427-FD3E-4193-B448-9DB825C94539}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C680A427-FD3E-4193-B448-9DB825C94539}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6FC083E0-5A3A-4C12-9D67-8DDB8C7ACE49}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6FC083E0-5A3A-4C12-9D67-8DDB8C7ACE49}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6FC083E0-5A3A-4C12-9D67-8DDB8C7ACE49}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6FC083E0-5A3A-4C12-9D67-8DDB8C7ACE49}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

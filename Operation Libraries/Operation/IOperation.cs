@@ -2,8 +2,13 @@
 {
     public interface IOperation
     {
-        int Operate(int arg0, int arg1);
+        string OperationName { get; }
 
-        double Operate(double arg0, double arg1);
+        string OperationSymbol { get; }
+
+        //double Operate(double numberFirst, double numberSecond);
+        //double Operate(double numberFirst, double numberSecond, double numberThird);
+
+        double Operate(params double[] numbers);
     }
 }

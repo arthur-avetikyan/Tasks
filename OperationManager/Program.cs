@@ -1,7 +1,8 @@
 ﻿using Operation;
+using OperationManager.Logs;
+using OperationManager.UI;
 using System;
 using System.Collections.Generic;
-using System.IO;
 
 namespace OperationManager
 {
@@ -9,16 +10,12 @@ namespace OperationManager
     {
         static void Main(string[] args)
         {
-            LibraryPaths lLibraryPaths = new LibraryPaths();
             PluginManager pluginManager = new PluginManager();
+            List<IOperation> lOperations = pluginManager.GetOperations();
+            IOperation lSelectedOperation = UIHandler.RequestOperation(lOperations);
+            UIHandler.ReceiveNumbersInput(lSelectedOperation);
 
-            UIHandler.RequestOperation();
 
-            string lOperation = UIHandler.ReceiveOperationInput(lLibraryPaths.availablePlugins);
-            string lPath = Path.Combine(LibraryPaths._pluginDirectory, lOperation);
-            List<IOperation> lOperations = pluginManager.LoadInstances<IOperation>(lPath);
-
-            UIHandler.ReceiveNumbersInput(lOperations);
 
             Console.ReadLine();
         }

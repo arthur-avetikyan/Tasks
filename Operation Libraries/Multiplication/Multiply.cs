@@ -1,11 +1,22 @@
 ﻿using Operation;
+using System.Runtime.Remoting.Messaging;
 
 namespace Multiplication
 {
     public class Multiply : IOperation
     {
-        public int Operate(int arg0, int arg1) => arg0 * arg1;
+        public string OperationName => "Multiply";
 
-        public double Operate(double arg0, double arg1) => arg0 * arg1;
+        public string OperationSymbol => "*";
+
+        public double Operate(params double[] numbers)
+        {
+            double lResult = 1;
+            for (int i = 0; i < numbers.Length; i++)
+            {
+                lResult *= numbers[i];
+            }
+            return lResult;
+        }
     }
 }
