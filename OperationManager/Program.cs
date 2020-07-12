@@ -15,8 +15,6 @@ namespace OperationManager
             IOperation lSelectedOperation = UIHandler.RequestOperation(lOperations);
             UIHandler.ReceiveNumbersInput(lSelectedOperation);
 
-
-
             Console.ReadLine();
         }
     }

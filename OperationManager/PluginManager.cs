@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
+using System.Security;
 
 namespace OperationManager
 {
@@ -29,7 +30,7 @@ namespace OperationManager
             catch (ArgumentException ex)
             {
                 logger.RecordEvent(ex.ToString());
-                Environment.Exit(-1);
+                Environment.Exit(1);
             }
             return null;
         }
@@ -37,7 +38,7 @@ namespace OperationManager
         private string[] GetOperationAssemblyFiles()
         {
             string lPath = Path.Combine(Directory.GetCurrentDirectory(), _PluginsDirectory);
-            return Directory.GetFiles(lPath, _extension, SearchOption.AllDirectories);
+            return Directory.GetFiles(lPath, _extension, SearchOption.TopDirectoryOnly);
         }
 
         private List<T> LoadInstances<T>(string fileName)
@@ -53,6 +54,8 @@ namespace OperationManager
                 Assembly lAssembly = Assembly.LoadFrom(fileName);
                 Type[] lTypes = lAssembly.GetTypes();
 
+                logger.RecordEvent("File loaded ", fileName);
+
                 for (int i = 0; i < lTypes.Length; i++)
                 {
                     Type lType = lTypes[i];
@@ -66,13 +69,17 @@ namespace OperationManager
                     }
                 }
             }
-            catch (ArgumentException ex)
+            catch (FileNotFoundException ex)
             {
-                logger.RecordEvent(ex.ToString());
+                logger.RecordEvent(fileName, ex.ToString());
             }
             catch (FileLoadException ex)
             {
-                logger.RecordEvent(ex.ToString());
+                logger.RecordEvent(fileName, "Assembly can not be loaded", ex.ToString());
+            }
+            catch (BadImageFormatException ex)
+            {
+                logger.RecordEvent(fileName, "File is not an assembly", ex.ToString());
             }
             return lTypesList;
         }
