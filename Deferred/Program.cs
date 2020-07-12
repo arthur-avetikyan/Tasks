@@ -8,6 +8,8 @@ namespace Deferred
 {
     class Program
     {
+        public static Random rand = new Random();
+
         static void Main(string[] args)
         {
             List<Car> lCars = new List<Car>
@@ -58,8 +60,36 @@ namespace Deferred
             Console.WriteLine($"{Environment.NewLine}Selected with Select after adding");
             DisplayCarNamesList(lFastestCarNames);
 
+            Console.WriteLine("--------------------------------------------------------------------------");
+            foreach (int num in GetRandomNumbers(5))
+            {
+                Console.WriteLine(num);
+            }
+
+            Console.WriteLine("--------------------------------------------------------------------------");
+            foreach (int num in GetRandomNumbersWithYeild(5))
+            {
+                Console.WriteLine(num);
+            }
 
             Console.ReadLine();
+        }
+
+        private static IEnumerable<int> GetRandomNumbers(int count)
+        {
+            GetRadnomNumbersGenerated lNums = new GetRadnomNumbersGenerated();
+            lNums.count = count;
+            Console.WriteLine("Inside GetRandomNumbers(int count) method");
+            return lNums;
+        }
+
+        private static IEnumerable<int> GetRandomNumbersWithYeild(int count)
+        {
+            for (int i = 0; i < count; i++)
+            {
+                Console.WriteLine("Inside loop in GetRandomNumbersWithYeild(int count) method");
+                yield return rand.Next();
+            }
         }
 
         private static void DisplayCarsList(IEnumerable<Car> carsList)

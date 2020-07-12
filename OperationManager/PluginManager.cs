@@ -15,29 +15,29 @@ namespace OperationManager
 
         public List<IOperation> GetOperations()
         {
-            List<IOperation> lOperations = new List<IOperation>();
-            string[] lFiles = GetOperationAssemblyFiles();
-
-            foreach (string file in lFiles)
+            try
             {
-                lOperations.AddRange(LoadInstances<IOperation>(file));
+                List<IOperation> lOperations = new List<IOperation>();
+                string[] lFiles = GetOperationAssemblyFiles();
+
+                foreach (string file in lFiles)
+                {
+                    lOperations.AddRange(LoadInstances<IOperation>(file));
+                }
+                return lOperations;
             }
-            return lOperations;
+            catch (ArgumentException ex)
+            {
+                logger.RecordEvent(ex.ToString());
+                Environment.Exit(-1);
+            }
+            return null;
         }
 
         private string[] GetOperationAssemblyFiles()
         {
             string lPath = Path.Combine(Directory.GetCurrentDirectory(), _PluginsDirectory);
-            try
-            {
-                return Directory.GetFiles(lPath, _extension, SearchOption.AllDirectories);
-            }
-            catch (Exception ex)
-            {
-                logger.RecordError(ex);
-                Environment.Exit(-1);
-            }
-            return null; ;
+            return Directory.GetFiles(lPath, _extension, SearchOption.AllDirectories);
         }
 
         private List<T> LoadInstances<T>(string fileName)
@@ -68,11 +68,11 @@ namespace OperationManager
             }
             catch (ArgumentException ex)
             {
-                logger.RecordError(ex);
+                logger.RecordEvent(ex.ToString());
             }
             catch (FileLoadException ex)
             {
-                logger.RecordError(ex);
+                logger.RecordEvent(ex.ToString());
             }
             return lTypesList;
         }
