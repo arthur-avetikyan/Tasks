@@ -10,9 +10,9 @@ namespace OperationManager
 {
     internal class PluginManager
     {
-        private string _PluginsDirectory = "Plugins";
-        private string _extension = "*Operations.dll";
-        private ILogger logger = new Logger();
+        private const string _pluginsDirectory = "Plugins";
+        private const string _extension = "*Operations.dll";
+        private ILogger lLogger = new Logger();
 
         public List<IOperation> GetOperations()
         {
@@ -29,7 +29,7 @@ namespace OperationManager
             }
             catch (ArgumentException ex)
             {
-                logger.RecordEvent(ex.ToString());
+                lLogger.RecordEvent(ex.ToString());
                 Environment.Exit(1);
             }
             return null;
@@ -37,7 +37,7 @@ namespace OperationManager
 
         private string[] GetOperationAssemblyFiles()
         {
-            string lPath = Path.Combine(Directory.GetCurrentDirectory(), _PluginsDirectory);
+            string lPath = Path.Combine(Directory.GetCurrentDirectory(), _pluginsDirectory);
             return Directory.GetFiles(lPath, _extension, SearchOption.TopDirectoryOnly);
         }
 
@@ -54,7 +54,7 @@ namespace OperationManager
                 Assembly lAssembly = Assembly.LoadFrom(fileName);
                 Type[] lTypes = lAssembly.GetTypes();
 
-                logger.RecordEvent("File loaded ", fileName);
+                lLogger.RecordEvent("File loaded ", fileName);
 
                 for (int i = 0; i < lTypes.Length; i++)
                 {
@@ -71,15 +71,15 @@ namespace OperationManager
             }
             catch (FileNotFoundException ex)
             {
-                logger.RecordEvent(fileName, ex.ToString());
+                lLogger.RecordEvent(fileName, ex.ToString());
             }
             catch (FileLoadException ex)
             {
-                logger.RecordEvent(fileName, "Assembly can not be loaded", ex.ToString());
+                lLogger.RecordEvent(fileName, "Assembly can not be loaded", ex.ToString());
             }
             catch (BadImageFormatException ex)
             {
-                logger.RecordEvent(fileName, "File is not an assembly", ex.ToString());
+                lLogger.RecordEvent(fileName, "File is not an assembly", ex.ToString());
             }
             return lTypesList;
         }

@@ -23,15 +23,11 @@ namespace OperationManager.Logs
         public string GetLogFile()
         {
             if (LogFileExists)
-            {
                 return _path;
-            }
             else
             {
                 using (File.Create(_path))
-                {
                     return _path;
-                }
             }
         }
 
