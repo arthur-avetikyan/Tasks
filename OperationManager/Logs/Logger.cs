@@ -1,21 +1,22 @@
 ﻿using System;
-using System.Diagnostics;
 using System.IO;
 using System.Text;
 
 namespace OperationManager.Logs
 {
-    public class Logger : ILogger
+    public class Logger : IRecorder
     {
         private const string _logFileDirectory = "Logs";
         private const string _logFileName = "Error Log";
         private const string _logFileExtention = ".txt";
 
-        private string _path;
+        private readonly string _path;
+        private readonly string _workingDirectory;
 
-        public Logger()
+        public Logger(string workingDirectory)
         {
-            _path = GetFilePath();
+            _workingDirectory = workingDirectory;
+            _path = GetFilePath(_workingDirectory);
         }
 
         private bool LogFileExists => File.Exists(_path);
@@ -31,25 +32,25 @@ namespace OperationManager.Logs
             }
         }
 
-        private string GetFilePath() => Path.Combine(GetFolder(), ConstructFileName());
+        private string GetFilePath(string workingDirectory) => Path.Combine(GetFolder(workingDirectory), ConstructFileName());
 
 
-        private string GetFolder()
+        private string GetFolder(string workingDirectory)
         {
-            DirectoryInfo lDirectoryInfo = Directory.CreateDirectory(GetDirectoryPath());
+            DirectoryInfo lDirectoryInfo = Directory.CreateDirectory(GetDirectoryPath(workingDirectory));
             if (lDirectoryInfo.Exists)
                 return lDirectoryInfo.FullName;
             else
                 return null;
         }
 
-        private string GetDirectoryPath() => Path.Combine(Directory.GetCurrentDirectory(), _logFileDirectory);
+        private string GetDirectoryPath(string workingDirectory) => Path.Combine(workingDirectory, _logFileDirectory);
 
         private string ConstructFileName()
         {
             StringBuilder lBuilder = new StringBuilder();
             lBuilder.Append($"[{_logFileName}] _ ");
-            lBuilder.Append(DateTime.UtcNow.ToShortDateString());
+            lBuilder.Append(DateTime.Now.ToShortDateString());
             lBuilder.Append(_logFileExtention);
             return lBuilder.ToString();
         }
@@ -58,19 +59,19 @@ namespace OperationManager.Logs
         {
             StringBuilder lBuilder = new StringBuilder();
             lBuilder.AppendLine();
-            lBuilder.Append(DateTime.UtcNow.ToString());
+            lBuilder.Append(DateTime.Now.ToString());
             lBuilder.Append(message);
             File.AppendAllText(GetLogFile(), lBuilder.ToString());
         }
 
-        public void RecordEvent(params string[] message)
+        public void RecordEvent(params string[] messages)
         {
             StringBuilder lBuilder = new StringBuilder();
             lBuilder.AppendLine();
-            lBuilder.AppendLine(DateTime.UtcNow.ToString());
-            for (int i = 0; i < message.Length; i++)
+            lBuilder.AppendLine(DateTime.Now.ToString());
+            for (int i = 0; i < messages.Length; i++)
             {
-                lBuilder.AppendLine(message[i]);
+                lBuilder.AppendLine(messages[i]);
             }
             File.AppendAllText(GetLogFile(), lBuilder.ToString());
         }

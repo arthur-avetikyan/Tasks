@@ -72,6 +72,12 @@ namespace Deferred
                 Console.WriteLine(num);
             }
 
+            Console.WriteLine("--------------------------------------------------------------------------");
+            foreach (int num in GetRandomNumbersWithList(5))
+            {
+                Console.WriteLine(num);
+            }
+
             Console.ReadLine();
         }
 
@@ -90,6 +96,17 @@ namespace Deferred
                 Console.WriteLine("Inside loop in GetRandomNumbersWithYeild(int count) method");
                 yield return rand.Next();
             }
+        }
+
+        private static IEnumerable<int> GetRandomNumbersWithList(int count)
+        {
+            List<int> list = new List<int>();
+            for (int i = 0; i < count; i++)
+            {
+                Console.WriteLine("Inside loop in GetRandomNumbersWithList(int count) method");
+                list.Add(rand.Next());
+            }
+            return list;
         }
 
         private static void DisplayCarsList(IEnumerable<Car> carsList)

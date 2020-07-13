@@ -12,7 +12,14 @@ namespace OperationManager
     {
         private const string _pluginsDirectory = "Plugins";
         private const string _extension = "*Operations.dll";
-        private ILogger lLogger = new Logger();
+        private readonly string _workingDirectory;
+        private IRecorder lLogger;
+
+        public PluginManager()
+        {
+            _workingDirectory = Directory.GetCurrentDirectory();
+            lLogger = new Logger(_workingDirectory);
+        }
 
         public List<IOperation> GetOperations()
         {
@@ -37,7 +44,8 @@ namespace OperationManager
 
         private string[] GetOperationAssemblyFiles()
         {
-            string lPath = Path.Combine(Directory.GetCurrentDirectory(), _pluginsDirectory);
+
+            string lPath = Path.Combine(_workingDirectory, _pluginsDirectory);
             return Directory.GetFiles(lPath, _extension, SearchOption.TopDirectoryOnly);
         }
 
