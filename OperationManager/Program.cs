@@ -13,7 +13,8 @@ namespace OperationManager
             PluginManager pluginManager = new PluginManager();
             List<IOperation> lOperations = pluginManager.GetOperations();
             IOperation lSelectedOperation = UIHandler.RequestOperation(lOperations);
-            UIHandler.ReceiveNumbersInput(lSelectedOperation);
+            if (lSelectedOperation != null)
+                UIHandler.ReceiveNumbersInput(lSelectedOperation);
 
             Console.ReadLine();
         }

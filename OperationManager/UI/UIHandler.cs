@@ -10,12 +10,20 @@ namespace OperationManager.UI
         public static IOperation RequestOperation(List<IOperation> availableOperations)
         {
             Console.WriteLine($" {UITexts.UserGreeting}");
-            Console.WriteLine($" {UITexts.OperationSelectRequest}");
-            foreach (IOperation item in availableOperations)
+            if (availableOperations.Count < 1)
             {
-                Console.WriteLine($"  {item.OperationName} -> {item.OperationSymbol}");
+                Console.WriteLine(UITexts.FailureMessage);
+                return null;
             }
-            return ReceiveOperationInput(availableOperations);
+            else
+            {
+                Console.WriteLine($" {UITexts.OperationSelectRequest}");
+                foreach (IOperation item in availableOperations)
+                {
+                    Console.WriteLine($"  {item.OperationName} -> {item.OperationSymbol}");
+                }
+                return ReceiveOperationInput(availableOperations);
+            }
         }
 
         private static IOperation ReceiveOperationInput(List<IOperation> operations)

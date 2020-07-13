@@ -2,12 +2,17 @@
 {
     public interface IRecorder
     {
-        void RecordEvent(string message);
+        void Record(LogTypes logTypes, string message);
 
-        void RecordEvent(params string[] messages);
+        void Record(LogTypes logTypes, params string[] messages);
+    }
 
-        void RecordError(string message);
 
-        void RecordError(params string[] messages);
+    public enum LogTypes
+    {
+        Error,
+        Warning,
+        Info,
+        Event
     }
 }

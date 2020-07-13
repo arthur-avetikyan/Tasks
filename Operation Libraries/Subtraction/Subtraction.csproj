@@ -52,6 +52,15 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>copy "$(TargetDir)" "$(SolutionDir)\Builds\Plugins"</PostBuildEvent>
+    <PostBuildEvent>if $(ConfigurationName) == Debug (
+cd "$(SolutionDir)OperationManager\bin\Debug"
+if not exist Plugins md Plugins
+cd "$(TargetDir)"
+copy "$(TargetDir)\*Operations.dll" "$(SolutionDir)OperationManager\bin\Debug\Plugins\")
+if $(ConfigurationName) == Release (
+cd "$(SolutionDir)OperationManager\bin\Release"
+if not exist Plugins md Plugins
+cd "$(TargetDir)"
+copy "$(TargetDir)\*Operations.dll" "$(SolutionDir)OperationManager\bin\Release\Plugins\")</PostBuildEvent>
   </PropertyGroup>
 </Project>

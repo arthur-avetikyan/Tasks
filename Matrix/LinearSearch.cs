@@ -5,8 +5,8 @@ namespace Matrix
 {
     public static class LinearSearch<T>
     {
-        public const string unicque = "u";
-        public const string dublicate = "d";
+        public const string Unicque = "U";
+        public const string Dublicate = "D";
 
         public static HashSet<T> FindDublicatesInMatrix(T[,] matrix)
         {
@@ -45,11 +45,11 @@ namespace Matrix
         {
             try
             {
-                dublicates.Add(item, unicque);
+                dublicates.Add(item, Unicque);
             }
             catch (ArgumentException)
             {
-                dublicates[item] = dublicate;
+                dublicates[item] = Dublicate;
             }
         }
     }

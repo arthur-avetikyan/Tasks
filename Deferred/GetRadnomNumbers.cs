@@ -9,9 +9,10 @@ namespace Deferred
 {
     class GetRadnomNumbersGenerated : IEnumerable<int>, IEnumerator<int>
     {
-        public int count;
-        private int lCounter;
-        private int lState;
+        static Random rand = new Random();
+        public int _count;
+        private int _counter;
+        private int _state;
 
         public IEnumerator<int> GetEnumerator() => this;
 
@@ -23,24 +24,23 @@ namespace Deferred
 
         public bool MoveNext()
         {
-            switch (lState)
+            switch (_state)
             {
                 case 0:
                     Console.WriteLine("Inside MoveNext() case 0: in GetRadnomNumbersGenerated() class");
-                    lCounter = 0;
+                    _counter = 0;
                     goto case 1;
                 case 1:
                     Console.WriteLine("Inside MoveNext() case 1: in GetRadnomNumbersGenerated() class");
-
-                    lState = 1;
-                    if (lCounter >= count)
+                    _state = 1;
+                    if (_counter >= _count)
                         return false;
-                    Current = Program.rand.Next();
-                    lState = 2;
+                    Current = rand.Next();
+                    _state = 2;
                     return true;
                 case 2:
                     Console.WriteLine("Inside MoveNext() case 2: in GetRadnomNumbersGenerated() class");
-                    lCounter++;
+                    _counter++;
                     goto case 1;
             }
             return false;

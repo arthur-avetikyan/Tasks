@@ -8,8 +8,6 @@ namespace Deferred
 {
     class Program
     {
-        public static Random rand = new Random();
-
         static void Main(string[] args)
         {
             List<Car> lCars = new List<Car>
@@ -87,7 +85,7 @@ namespace Deferred
         private static IEnumerable<int> GetRandomNumbers(int count)
         {
             GetRadnomNumbersGenerated lNums = new GetRadnomNumbersGenerated();
-            lNums.count = count;
+            lNums._count = count;
             Console.WriteLine("Inside GetRandomNumbers(int count) method");
             return lNums;
         }
@@ -97,7 +95,7 @@ namespace Deferred
             for (int i = 0; i < count; i++)
             {
                 Console.WriteLine("Inside loop in GetRandomNumbersWithYeild(int count) method");
-                yield return rand.Next();
+                yield return new Random().Next();
             }
         }
 
@@ -107,7 +105,7 @@ namespace Deferred
             for (int i = 0; i < count; i++)
             {
                 Console.WriteLine("Inside loop in GetRandomNumbersWithList(int count) method");
-                list.Add(rand.Next());
+                list.Add(new Random().Next());
             }
             return list;
         }

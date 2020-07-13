@@ -28,19 +28,15 @@ namespace Matrix
         static void PrintDublicateValues<T>(IEnumerable<T> set)
         {
             foreach (T item in set)
-            {
                 Console.WriteLine(item);
-            }
         }
 
         static void PrintDublicateValues<T>(Dictionary<T, string> set)
         {
             foreach (var item in set)
             {
-                if (item.Value.Equals(LinearSearch<T>.dublicate))
-                {
+                if (item.Value.Equals(LinearSearch<T>.Dublicate))
                     Console.WriteLine(item.Key);
-                }
             }
         }
     }
