@@ -13,9 +13,9 @@ namespace OperationManager.Logs
         private readonly string _path;
         private readonly string _workingDirectory;
 
-        public Logger(string workingDirectory)
+        public Logger()
         {
-            _workingDirectory = workingDirectory;
+            _workingDirectory = Directory.GetCurrentDirectory();
             _path = GetFilePath(_workingDirectory);
         }
 
@@ -59,6 +59,7 @@ namespace OperationManager.Logs
         {
             StringBuilder lBuilder = new StringBuilder();
             lBuilder.AppendLine();
+            lBuilder.AppendLine("Event");
             lBuilder.Append(DateTime.Now.ToString());
             lBuilder.Append(message);
             File.AppendAllText(GetLogFile(), lBuilder.ToString());
@@ -68,6 +69,30 @@ namespace OperationManager.Logs
         {
             StringBuilder lBuilder = new StringBuilder();
             lBuilder.AppendLine();
+            lBuilder.AppendLine("Event");
+            lBuilder.AppendLine(DateTime.Now.ToString());
+            for (int i = 0; i < messages.Length; i++)
+            {
+                lBuilder.AppendLine(messages[i]);
+            }
+            File.AppendAllText(GetLogFile(), lBuilder.ToString());
+        }
+
+        public void RecordError(string message)
+        {
+            StringBuilder lBuilder = new StringBuilder();
+            lBuilder.AppendLine();
+            lBuilder.AppendLine("Error");
+            lBuilder.Append(DateTime.Now.ToString());
+            lBuilder.Append(message);
+            File.AppendAllText(GetLogFile(), lBuilder.ToString());
+        }
+
+        public void RecordError(params string[] messages)
+        {
+            StringBuilder lBuilder = new StringBuilder();
+            lBuilder.AppendLine();
+            lBuilder.AppendLine("Error");
             lBuilder.AppendLine(DateTime.Now.ToString());
             for (int i = 0; i < messages.Length; i++)
             {

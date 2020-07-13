@@ -12,13 +12,14 @@ namespace OperationManager
     {
         private const string _pluginsDirectory = "Plugins";
         private const string _extension = "*Operations.dll";
+
         private readonly string _workingDirectory;
         private IRecorder lLogger;
 
         public PluginManager()
         {
             _workingDirectory = Directory.GetCurrentDirectory();
-            lLogger = new Logger(_workingDirectory);
+            lLogger = new Logger();
         }
 
         public List<IOperation> GetOperations()
@@ -36,7 +37,7 @@ namespace OperationManager
             }
             catch (ArgumentException ex)
             {
-                lLogger.RecordEvent(ex.ToString());
+                lLogger.RecordError(ex.ToString());
                 Environment.Exit(1);
             }
             return null;
@@ -62,7 +63,7 @@ namespace OperationManager
                 Assembly lAssembly = Assembly.LoadFrom(fileName);
                 Type[] lTypes = lAssembly.GetTypes();
 
-                lLogger.RecordEvent("File loaded ", fileName);
+                lLogger.RecordEvent("File loaded.", fileName);
 
                 for (int i = 0; i < lTypes.Length; i++)
                 {
@@ -79,15 +80,15 @@ namespace OperationManager
             }
             catch (FileNotFoundException ex)
             {
-                lLogger.RecordEvent(fileName, ex.ToString());
+                lLogger.RecordError(fileName, ex.ToString());
             }
             catch (FileLoadException ex)
             {
-                lLogger.RecordEvent(fileName, "Assembly can not be loaded", ex.ToString());
+                lLogger.RecordError(fileName, ex.ToString());
             }
             catch (BadImageFormatException ex)
             {
-                lLogger.RecordEvent(fileName, "File is not an assembly", ex.ToString());
+                lLogger.RecordError(fileName, ex.ToString());
             }
             return lTypesList;
         }

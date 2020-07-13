@@ -43,7 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Logs\ILogger.cs" />
+    <Compile Include="Logs\IRecorder.cs" />
     <Compile Include="Logs\Logger.cs" />
     <Compile Include="PluginManager.cs" />
     <Compile Include="UI\UIHandler.cs" />

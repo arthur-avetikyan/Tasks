@@ -60,20 +60,23 @@ namespace Deferred
             Console.WriteLine($"{Environment.NewLine}Selected with Select after adding");
             DisplayCarNamesList(lFastestCarNames);
 
+            IEnumerable<int> _withClass = GetRandomNumbers(5);
             Console.WriteLine("--------------------------------------------------------------------------");
-            foreach (int num in GetRandomNumbers(5))
+            foreach (int num in _withClass)
             {
                 Console.WriteLine(num);
             }
 
+            IEnumerable<int> _withYield = GetRandomNumbersWithYeild(5);
             Console.WriteLine("--------------------------------------------------------------------------");
-            foreach (int num in GetRandomNumbersWithYeild(5))
+            foreach (int num in _withYield)
             {
                 Console.WriteLine(num);
             }
 
+            IEnumerable<int> _withList = GetRandomNumbersWithList(5);
             Console.WriteLine("--------------------------------------------------------------------------");
-            foreach (int num in GetRandomNumbersWithList(5))
+            foreach (int num in _withList)
             {
                 Console.WriteLine(num);
             }
