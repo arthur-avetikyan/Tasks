@@ -2,8 +2,6 @@
 {
     public static class UITexts
     {
-        public const string UserGreeting = "Hello User";
-
         public const string OperationSelectRequest = "Please choose an operation to perform.";
         public const string NumberInputRequest = "Please input numbers seperated by comma(',') or space.";
 

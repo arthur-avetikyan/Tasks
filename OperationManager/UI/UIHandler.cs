@@ -7,26 +7,19 @@ namespace OperationManager.UI
 {
     public static class UIHandler
     {
-        public static IOperation RequestOperation()
+        public static string RequestOperation(IEnumerable<IOperation> availableOperations)
         {
-            List<IOperation> lAvailableOperations = new PluginManager().GetOperations();
-            Console.WriteLine($" {UITexts.UserGreeting}");
             Console.WriteLine($" {UITexts.OperationSelectRequest}");
-            if (lAvailableOperations.Count < 1)
-            {
-                Console.WriteLine(UITexts.FailureMessage);
-                return null;
-            }
-            foreach (IOperation item in lAvailableOperations)
+            foreach (IOperation item in availableOperations)
             {
                 Console.WriteLine($"  {item.OperationName} -> {item.OperationRepresentation}");
             }
-            return ReceiveOperationInput(lAvailableOperations);
+            return ReceiveOperationInput(availableOperations);
         }
 
-        private static IOperation ReceiveOperationInput(List<IOperation> operations)
+        private static string ReceiveOperationInput(IEnumerable<IOperation> operations)
         {
-            IOperation lOperation;
+            string lOperation;
             do
             {
                 lOperation = GetValidOption(operations);
@@ -37,12 +30,12 @@ namespace OperationManager.UI
             while (true);
         }
 
-        private static IOperation GetValidOption(List<IOperation> operations)
+        private static string GetValidOption(IEnumerable<IOperation> operations)
         {
             string lOption = Console.ReadLine();
-            return operations
-                .Where(item => item.OperationRepresentation.Equals(lOption) || item.OperationName.Equals(lOption))
-                .FirstOrDefault();
+            if (operations.Any(item => item.OperationRepresentation.Equals(lOption) || item.OperationName.Equals(lOption)))
+                return lOption;
+            return null;
         }
 
         public static double[] ReceiveNumbersInput()

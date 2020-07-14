@@ -1,7 +1,5 @@
-﻿using Operation;
-using OperationManager.UI;
+﻿using OperationManager.UI;
 using System;
-using System.Collections.Generic;
 
 namespace OperationManager
 {
@@ -9,13 +7,9 @@ namespace OperationManager
     {
         static void Main(string[] args)
         {
-            IOperation lSelectedOperation = UIHandler.RequestOperation();
-            if (lSelectedOperation == null)
-                return;
-            double[] lOperands = UIHandler.ReceiveNumbersInput();
-
-            OperationPerformer operationPerformer = new OperationPerformer(lSelectedOperation, lOperands);
-            operationPerformer.PerformOperation();
+            OperationResolver lResolver = new OperationResolver();
+            OperationPerformer lOperationPerformer = new OperationPerformer(lResolver);
+            lOperationPerformer.PerformOperation(UIHandler.RequestOperation(lResolver.Operations), UIHandler.ReceiveNumbersInput());
 
             Console.ReadLine();
         }

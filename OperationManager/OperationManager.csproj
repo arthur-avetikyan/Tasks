@@ -43,9 +43,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IOperationResolver.cs" />
     <Compile Include="Logs\IRecorder.cs" />
     <Compile Include="Logs\Logger.cs" />
     <Compile Include="OperationPerformer.cs" />
+    <Compile Include="OperationResolver.cs" />
     <Compile Include="PluginManager.cs" />
     <Compile Include="UI\UIHandler.cs" />
     <Compile Include="Program.cs" />
