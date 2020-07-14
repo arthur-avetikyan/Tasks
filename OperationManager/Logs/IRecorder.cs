@@ -7,7 +7,6 @@
         void Record(LogTypes logTypes, params string[] messages);
     }
 
-
     public enum LogTypes
     {
         Error,

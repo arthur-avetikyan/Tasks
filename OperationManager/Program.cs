@@ -1,5 +1,4 @@
 ﻿using Operation;
-using OperationManager.Logs;
 using OperationManager.UI;
 using System;
 using System.Collections.Generic;
@@ -10,11 +9,13 @@ namespace OperationManager
     {
         static void Main(string[] args)
         {
-            PluginManager pluginManager = new PluginManager();
-            List<IOperation> lOperations = pluginManager.GetOperations();
-            IOperation lSelectedOperation = UIHandler.RequestOperation(lOperations);
-            if (lSelectedOperation != null)
-                UIHandler.ReceiveNumbersInput(lSelectedOperation);
+            IOperation lSelectedOperation = UIHandler.RequestOperation();
+            if (lSelectedOperation == null)
+                return;
+            double[] lOperands = UIHandler.ReceiveNumbersInput();
+
+            OperationPerformer operationPerformer = new OperationPerformer(lSelectedOperation, lOperands);
+            operationPerformer.PerformOperation();
 
             Console.ReadLine();
         }

@@ -6,7 +6,7 @@ namespace Subtraction
     {
         public string OperationName => "Subtract";
 
-        public string OperationSymbol => "-";
+        public string OperationRepresentation => "-";
 
         public double Operate(params double[] numbers)
         {

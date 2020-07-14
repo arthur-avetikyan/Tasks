@@ -6,7 +6,7 @@ namespace Addition
     {
         public string OperationName => "Add";
 
-        public string OperationSymbol => "+";
+        public string OperationRepresentation => "+";
 
         public double Operate(params double[] numbers)
         {

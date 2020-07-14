@@ -8,7 +8,7 @@ namespace Division
     {
         public string OperationName => "Divide";
 
-        public string OperationSymbol => "/";
+        public string OperationRepresentation => "/";
 
         public double Operate(params double[] numbers)
         {

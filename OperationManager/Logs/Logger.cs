@@ -10,40 +10,33 @@ namespace OperationManager.Logs
         private const string _logFileName = "Event_Log";
         private const string _logFileExtention = ".txt";
 
-        private readonly string _path;
+        private readonly string _filePath;
         private readonly string _workingDirectory;
 
         public Logger()
         {
             _workingDirectory = Directory.GetCurrentDirectory();
-            _path = GetFilePath(_workingDirectory);
+            _filePath = GetFilePath(_workingDirectory);
         }
 
-        public bool LogFileExists => File.Exists(_path);
+        public bool LogFileExists => File.Exists(_filePath);
 
         public string GetLogFile()
         {
             if (LogFileExists)
-                return _path;
+                return _filePath;
             else
             {
-                using (File.Create(_path))
-                    return _path;
+                using (File.Create(_filePath))
+                    return _filePath;
             }
         }
 
-        private string GetFilePath(string workingDirectory) => Path.Combine(GetFolder(workingDirectory), ConstructFileName());
-
-        private string GetFolder(string workingDirectory)
+        private string GetFilePath(string workingDirectory)
         {
-            DirectoryInfo lDirectoryInfo = Directory.CreateDirectory(GetDirectoryPath(workingDirectory));
-            if (lDirectoryInfo.Exists)
-                return lDirectoryInfo.FullName;
-            else
-                return null;
+            DirectoryInfo lDirectoryInfo = Directory.CreateDirectory(Path.Combine(workingDirectory, _logFileDirectory));
+            return Path.Combine(lDirectoryInfo.FullName, ConstructFileName());
         }
-
-        private string GetDirectoryPath(string workingDirectory) => Path.Combine(workingDirectory, _logFileDirectory);
 
         private string ConstructFileName()
         {
@@ -59,8 +52,8 @@ namespace OperationManager.Logs
             StringBuilder lBuilder = new StringBuilder();
             lBuilder.AppendLine();
             lBuilder.AppendLine(logTypes.ToString());
-            lBuilder.Append(DateTime.Now.ToString("yyyy-MM-dd"));
-            lBuilder.Append(message);
+            lBuilder.AppendLine(DateTime.Now.ToString());
+            lBuilder.AppendLine(message);
             File.AppendAllText(GetLogFile(), lBuilder.ToString());
         }
 

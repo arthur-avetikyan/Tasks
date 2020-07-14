@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
-using System.Security;
 
 namespace OperationManager
 {
@@ -72,10 +71,9 @@ namespace OperationManager
                     return lTypesList;
 
                 Assembly lAssembly = Assembly.LoadFrom(fileName);
-                Type[] lTypes = lAssembly.GetTypes();
-
                 lLogger.Record(LogTypes.Info, "Assembly loaded.", fileName);
 
+                Type[] lTypes = lAssembly.GetTypes();
                 for (int i = 0; i < lTypes.Length; i++)
                 {
                     Type lType = lTypes[i];

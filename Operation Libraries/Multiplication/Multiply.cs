@@ -7,7 +7,7 @@ namespace Multiplication
     {
         public string OperationName => "Multiply";
 
-        public string OperationSymbol => "*";
+        public string OperationRepresentation => "*";
 
         public double Operate(params double[] numbers)
         {

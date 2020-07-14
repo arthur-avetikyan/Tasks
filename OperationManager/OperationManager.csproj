@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="Logs\IRecorder.cs" />
     <Compile Include="Logs\Logger.cs" />
+    <Compile Include="OperationPerformer.cs" />
     <Compile Include="PluginManager.cs" />
     <Compile Include="UI\UIHandler.cs" />
     <Compile Include="Program.cs" />

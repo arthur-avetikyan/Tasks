@@ -7,23 +7,21 @@ namespace OperationManager.UI
 {
     public static class UIHandler
     {
-        public static IOperation RequestOperation(List<IOperation> availableOperations)
+        public static IOperation RequestOperation()
         {
+            List<IOperation> lAvailableOperations = new PluginManager().GetOperations();
             Console.WriteLine($" {UITexts.UserGreeting}");
-            if (availableOperations.Count < 1)
+            Console.WriteLine($" {UITexts.OperationSelectRequest}");
+            if (lAvailableOperations.Count < 1)
             {
                 Console.WriteLine(UITexts.FailureMessage);
                 return null;
             }
-            else
+            foreach (IOperation item in lAvailableOperations)
             {
-                Console.WriteLine($" {UITexts.OperationSelectRequest}");
-                foreach (IOperation item in availableOperations)
-                {
-                    Console.WriteLine($"  {item.OperationName} -> {item.OperationSymbol}");
-                }
-                return ReceiveOperationInput(availableOperations);
+                Console.WriteLine($"  {item.OperationName} -> {item.OperationRepresentation}");
             }
+            return ReceiveOperationInput(lAvailableOperations);
         }
 
         private static IOperation ReceiveOperationInput(List<IOperation> operations)
@@ -33,9 +31,7 @@ namespace OperationManager.UI
             {
                 lOperation = GetValidOption(operations);
                 if (lOperation != null)
-                {
                     return lOperation;
-                }
                 Console.WriteLine(UITexts.InvalidOptionsInputMessage);
             }
             while (true);
@@ -45,29 +41,30 @@ namespace OperationManager.UI
         {
             string lOption = Console.ReadLine();
             return operations
-                .Where(item => item.OperationSymbol.Equals(lOption) || item.OperationName.Equals(lOption))
+                .Where(item => item.OperationRepresentation.Equals(lOption) || item.OperationName.Equals(lOption))
                 .FirstOrDefault();
         }
 
-        public static void ReceiveNumbersInput(IOperation selectedOperation)
+        public static double[] ReceiveNumbersInput()
         {
-            Console.WriteLine($"{UITexts.NumberInputRequest}");
-            string[] lInput = Console.ReadLine().Split(new char[] { ',', ' ' }, StringSplitOptions.RemoveEmptyEntries);
-
-            ApplyNumbers(selectedOperation, lInput);
+            do
+            {
+                Console.WriteLine($"{UITexts.NumberInputRequest}");
+                string[] lInput = Console.ReadLine().Split(new char[] { ',', ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                double[] lNumbers = new double[lInput.Length];
+                if (ValidateNumericInputs(lInput, ref lNumbers))
+                    return lNumbers;
+            }
+            while (true);
         }
 
-        private static void ApplyNumbers(IOperation selectedOperation, string[] input)
+        private static bool ValidateNumericInputs(string[] input, ref double[] numbers)
         {
-            double[] lNumbers = new double[input.Length];
-            if (ValidateGroupNumericInputs(input, ref lNumbers))
-                PerformOperation(selectedOperation, lNumbers);
-            else
-                ReceiveNumbersInput(selectedOperation);
-        }
-
-        private static bool ValidateGroupNumericInputs(string[] input, ref double[] numbers)
-        {
+            if (input.Length < 1)
+            {
+                Console.WriteLine(UITexts.InvalidNumbersInputMessage);
+                return false;
+            }
             for (int i = 0; i < input.Length; i++)
             {
                 if (!double.TryParse(input[i], out numbers[i]))
@@ -77,22 +74,6 @@ namespace OperationManager.UI
                 }
             }
             return true;
-        }
-
-        private static void PerformOperation(IOperation selectedOperation, double[] numbers)
-        {
-            double lResult = selectedOperation.Operate(numbers);
-            DisplayOutput(selectedOperation, numbers, lResult);
-        }
-
-        public static void DisplayOutput(IOperation selectedOperation, double[] numbers, double result)
-        {
-            Console.Write($"{Environment.NewLine} {UITexts.ResultMessage} {numbers[0]} ");
-            for (int i = 1; i < numbers.Length; i++)
-            {
-                Console.Write($"{selectedOperation.OperationSymbol} {numbers[i]} ");
-            }
-            Console.Write($"= {result}");
         }
     }
 }
