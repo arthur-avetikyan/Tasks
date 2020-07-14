@@ -1,4 +1,5 @@
 ﻿using Operation;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -15,9 +16,12 @@ namespace OperationManager
 
         public IOperation Resolve(string option)
         {
-            return Operations
+            IOperation lOperation = Operations
                 .Where(item => item.OperationRepresentation.Equals(option) || item.OperationName.Equals(option))
                 .FirstOrDefault();
+            if (lOperation == null)
+                throw new ArgumentException("Operation not found", option);
+            return lOperation;
         }
     }
 }
