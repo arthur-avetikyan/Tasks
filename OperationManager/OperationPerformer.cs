@@ -1,34 +1,24 @@
-﻿using Operation;
-using OperationManager.UI;
+﻿using OperationManager.UI;
 using System;
 
 namespace OperationManager
 {
     public class OperationPerformer
     {
-        private IOperationResolver _operationResolver;
+        private IOperationResolver _iOperationResolver;
 
-        public OperationPerformer(IOperationResolver operationResolver)
+        public OperationPerformer(IOperationResolver iOperationResolver)
         {
-            _operationResolver = operationResolver;
+            _iOperationResolver = iOperationResolver;
         }
 
         public void PerformOperation(string option, double[] numbers)
         {
-            IOperation lOperation = _operationResolver.Resolve(option);
-            double lResult = lOperation.Operate(numbers);
-            DisplayOutput(lOperation, numbers, lResult);
+            double lResult = _iOperationResolver.Resolve(option).Operate(numbers);
+            DisplayOutput(lResult);
         }
 
-        private void DisplayOutput(IOperation operation, double[] numbers, double result)
-        {
-            Console.Write($"{Environment.NewLine} {UITexts.ResultMessage} {numbers[0]} ");
-            for (int i = 1; i < numbers.Length; i++)
-            {
-                Console.Write($"{operation.OperationRepresentation} {numbers[i]} ");
-            }
-            Console.Write($"= {result}");
-        }
+        private void DisplayOutput(double result) => Console.Write($"{Environment.NewLine} {UITexts.ResultMessage} {result} ");
 
     }
 }
