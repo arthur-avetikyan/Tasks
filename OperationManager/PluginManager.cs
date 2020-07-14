@@ -1,5 +1,4 @@
-﻿using Operation;
-using OperationManager.Logs;
+﻿using OperationManager.Logs;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -21,16 +20,16 @@ namespace OperationManager
             lLogger = new Logger();
         }
 
-        public List<IOperation> GetOperations()
+        public List<T> GetOperations<T>()
         {
             try
             {
-                List<IOperation> lOperations = new List<IOperation>();
+                List<T> lOperations = new List<T>();
                 string[] lFiles = GetOperationAssemblyFiles();
 
                 foreach (string file in lFiles)
                 {
-                    lOperations.AddRange(LoadInstances<IOperation>(file));
+                    lOperations.AddRange(LoadInstances<T>(file));
                 }
                 return lOperations;
             }

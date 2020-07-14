@@ -7,9 +7,9 @@ namespace OperationManager.UI
 {
     public static class UIHandler
     {
-        public static string RequestOperation(IEnumerable<IOperation> availableOperations)
+        public static string GetOperation(IEnumerable<IOperation> availableOperations)
         {
-            Console.WriteLine($" {UITexts.OperationSelectRequest}");
+            Console.WriteLine($"{Environment.NewLine} {UITexts.OperationSelectRequest}");
             foreach (IOperation item in availableOperations)
             {
                 Console.WriteLine($"  {item.OperationName} -> {item.OperationRepresentation}");
@@ -38,7 +38,7 @@ namespace OperationManager.UI
             return null;
         }
 
-        public static double[] ReceiveNumbersInput()
+        public static double[] GetNumbersInput()
         {
             do
             {

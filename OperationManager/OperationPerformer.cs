@@ -18,7 +18,6 @@ namespace OperationManager
             DisplayOutput(lResult);
         }
 
-        private void DisplayOutput(double result) => Console.Write($"{Environment.NewLine} {UITexts.ResultMessage} {result} ");
-
+        private void DisplayOutput(double result) => Console.Write($"{UITexts.ResultMessage} {result} ");
     }
 }

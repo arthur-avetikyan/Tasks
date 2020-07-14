@@ -11,7 +11,7 @@ namespace OperationManager
 
         public OperationResolver()
         {
-            Operations = new PluginManager().GetOperations();
+            Operations = new PluginManager().GetOperations<IOperation>();
         }
 
         public IOperation Resolve(string option)

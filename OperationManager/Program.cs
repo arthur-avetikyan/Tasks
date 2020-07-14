@@ -9,7 +9,7 @@ namespace OperationManager
         {
             OperationResolver lResolver = new OperationResolver();
             OperationPerformer lOperationPerformer = new OperationPerformer(lResolver);
-            lOperationPerformer.PerformOperation(UIHandler.RequestOperation(lResolver.Operations), UIHandler.ReceiveNumbersInput());
+            lOperationPerformer.PerformOperation(UIHandler.GetOperation(lResolver.Operations), UIHandler.GetNumbersInput());
 
             Console.ReadLine();
         }
