@@ -8,10 +8,23 @@ namespace OperationManager
         static void Main(string[] args)
         {
             OperationResolver lResolver = new OperationResolver();
-            OperationPerformer lOperationPerformer = new OperationPerformer(lResolver);
-            lOperationPerformer.PerformOperation(UIHandler.GetOperation(lResolver.Operations), UIHandler.GetNumbersInput());
+            OperationPerformer lOperationPerformer;
+            string lOption;
+            double[] lNumbers;
+            double lResult;
 
-            Console.ReadLine();
+            do
+            {
+                lOption = UIHandler.GetOperation(lResolver.Operations);
+                lOperationPerformer = lResolver.ResolveOperation(lOption);
+                lNumbers = UIHandler.GetNumbersInput();
+                lResult = lOperationPerformer.PerformOperation(lNumbers);
+                UIHandler.DisplayOutput(lOption, lResult, lNumbers);
+            }
+            while (true);
+
+
+            //   Console.ReadLine();
         }
     }
 }

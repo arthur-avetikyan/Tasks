@@ -12,12 +12,12 @@ namespace OperationManager
         private const string _extension = "*Operations.dll";
 
         private readonly string _workingDirectory;
-        private IRecorder lLogger;
+        private ILogger _logger;
 
         public PluginManager()
         {
             _workingDirectory = Directory.GetCurrentDirectory();
-            lLogger = new Logger();
+            _logger = new Logger();
         }
 
         public List<T> GetOperations<T>()
@@ -35,12 +35,12 @@ namespace OperationManager
             }
             catch (ArgumentException ex)
             {
-                lLogger.Record(LogTypes.Error, ex.ToString());
+                _logger.Record(LogTypes.Error, ex.ToString());
                 Environment.Exit(1);
             }
             catch (Exception ex)
             {
-                lLogger.Record(LogTypes.Error, ex.ToString());
+                _logger.Record(LogTypes.Error, ex.ToString());
                 Environment.Exit(1);
             }
             return null;
@@ -54,7 +54,7 @@ namespace OperationManager
             else
             {
                 DirectoryInfo lDir = Directory.CreateDirectory(lPath);
-                lLogger.Record(LogTypes.Warning, "Plugins directory does not exist.", lDir.FullName);
+                _logger.Record(LogTypes.Warning, "Plugins directory does not exist.", lDir.FullName);
                 return Directory.GetFiles(lDir.FullName, _extension, SearchOption.TopDirectoryOnly);
             }
         }
@@ -70,7 +70,7 @@ namespace OperationManager
                     return lTypesList;
 
                 Assembly lAssembly = Assembly.LoadFrom(fileName);
-                lLogger.Record(LogTypes.Info, "Assembly loaded.", fileName);
+                _logger.Record(LogTypes.Info, "Assembly loaded.", fileName);
 
                 Type[] lTypes = lAssembly.GetTypes();
                 for (int i = 0; i < lTypes.Length; i++)
@@ -88,15 +88,15 @@ namespace OperationManager
             }
             catch (FileNotFoundException ex)
             {
-                lLogger.Record(LogTypes.Error, fileName, ex.ToString());
+                _logger.Record(LogTypes.Error, fileName, ex.ToString());
             }
             catch (FileLoadException ex)
             {
-                lLogger.Record(LogTypes.Error, fileName, ex.ToString());
+                _logger.Record(LogTypes.Error, fileName, ex.ToString());
             }
             catch (BadImageFormatException ex)
             {
-                lLogger.Record(LogTypes.Error, fileName, ex.ToString());
+                _logger.Record(LogTypes.Error, fileName, ex.ToString());
             }
             return lTypesList;
         }

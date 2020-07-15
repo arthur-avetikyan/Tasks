@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{611006C2-CEDD-41C4-AE10-53002004B71C}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>TaskOne</RootNamespace>
-    <AssemblyName>TaskOne</AssemblyName>
+    <RootNamespace>Writer</RootNamespace>
+    <AssemblyName>Writer</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>

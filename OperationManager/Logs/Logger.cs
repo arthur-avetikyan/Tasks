@@ -4,7 +4,7 @@ using System.Text;
 
 namespace OperationManager.Logs
 {
-    public class Logger : IRecorder
+    public class Logger : ILogger
     {
         private const string _logFileDirectory = "Logs";
         private const string _logFileName = "Event_Log";

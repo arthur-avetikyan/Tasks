@@ -68,5 +68,15 @@ namespace OperationManager.UI
             }
             return true;
         }
+
+        public static void DisplayOutput(string option, double result, params double[] numbers)
+        {
+            Console.Write($"{Environment.NewLine} {UITexts.ResultMessage} {numbers[0]} ");
+            for (int i = 1; i < numbers.Length; i++)
+            {
+                Console.Write($"{option} {numbers[i]} ");
+            }
+            Console.Write($"= {result}");
+        }
     }
 }

@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace OperationManager
 {
-    public class OperationResolver : IOperationResolver
+    public class OperationResolver
     {
         public IEnumerable<IOperation> Operations { get; }
 
@@ -14,14 +14,14 @@ namespace OperationManager
             Operations = new PluginManager().GetOperations<IOperation>();
         }
 
-        public IOperation Resolve(string option)
+        public OperationPerformer ResolveOperation(string option)
         {
             IOperation lOperation = Operations
                 .Where(item => item.OperationRepresentation.Equals(option) || item.OperationName.Equals(option))
                 .FirstOrDefault();
             if (lOperation == null)
                 throw new ArgumentException("Operation not found", option);
-            return lOperation;
+            return new OperationPerformer(lOperation);
         }
     }
 }

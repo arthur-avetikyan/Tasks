@@ -1,6 +1,6 @@
 ﻿namespace OperationManager.Logs
 {
-    public interface IRecorder
+    public interface ILogger
     {
         void Record(LogTypes logTypes, string message);
 
