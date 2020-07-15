@@ -5,23 +5,34 @@ using System.Linq;
 
 namespace OperationManager
 {
-    public class Resolver
+    public class OperationResolver
     {
         public IEnumerable<IOperation> Operations { get; }
 
-        public Resolver()
+        public OperationResolver()
         {
             Operations = new PluginManager().GetOperations<IOperation>();
         }
 
-        public OperationPerformer ResolveOperation(string option)
+        public OperationPerformer ResolveOperationPerformer(string option = null)
         {
-            IOperation lOperation = Operations
+            IOperation lOperation = GetSelectedOperation(option);
+            return new OperationPerformer(lOperation);
+        }
+
+        public IOperation ResolveOperation(string option = null)
+        {
+            return GetSelectedOperation(option);
+        }
+
+        private IOperation GetSelectedOperation(string option = null)
+        {
+            IOperation lOperation = option == null ? Operations.FirstOrDefault() : Operations
                 .Where(item => item.OperationRepresentation.Equals(option) || item.OperationName.Equals(option))
                 .FirstOrDefault();
             if (lOperation == null)
                 throw new ArgumentException("Operation not found", option);
-            return new OperationPerformer(lOperation);
+            return lOperation;
         }
     }
 }

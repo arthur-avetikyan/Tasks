@@ -15,5 +15,10 @@ namespace OperationManager
         {
             return _operation.Operate(numbers);
         }
+
+        public void SetOperation(IOperation operation)
+        {
+            _operation = operation;
+        }
     }
 }

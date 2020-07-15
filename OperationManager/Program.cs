@@ -6,8 +6,8 @@ namespace OperationManager
     {
         static void Main(string[] args)
         {
-            Resolver lResolver = new Resolver();
-            OperationPerformer lOperationPerformer;
+            OperationResolver lResolver = new OperationResolver();
+            OperationPerformer lOperationPerformer = lResolver.ResolveOperationPerformer();
             string lOption;
             double[] lNumbers;
             double lResult;
@@ -16,7 +16,7 @@ namespace OperationManager
             do
             {
                 lOption = UIHandler.GetOperation(lResolver.Operations);
-                lOperationPerformer = lResolver.ResolveOperation(lOption);
+                lOperationPerformer.SetOperation(lResolver.ResolveOperation(lOption));
                 lNumbers = UIHandler.GetNumbersInput();
                 lResult = lOperationPerformer.PerformOperation(lNumbers);
                 UIHandler.DisplayOutput(lOption, lResult, lNumbers);
