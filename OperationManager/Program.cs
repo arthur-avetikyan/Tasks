@@ -1,5 +1,4 @@
 ﻿using OperationManager.UI;
-using System;
 
 namespace OperationManager
 {
@@ -7,11 +6,12 @@ namespace OperationManager
     {
         static void Main(string[] args)
         {
-            OperationResolver lResolver = new OperationResolver();
+            Resolver lResolver = new Resolver();
             OperationPerformer lOperationPerformer;
             string lOption;
             double[] lNumbers;
             double lResult;
+            bool lNext;
 
             do
             {
@@ -20,11 +20,9 @@ namespace OperationManager
                 lNumbers = UIHandler.GetNumbersInput();
                 lResult = lOperationPerformer.PerformOperation(lNumbers);
                 UIHandler.DisplayOutput(lOption, lResult, lNumbers);
+                lNext = UIHandler.GetExitOption();
             }
-            while (true);
-
-
-            //   Console.ReadLine();
+            while (lNext);
         }
     }
 }

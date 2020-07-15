@@ -78,5 +78,11 @@ namespace OperationManager.UI
             }
             Console.Write($"= {result}");
         }
+
+        public static bool GetExitOption()
+        {
+            Console.WriteLine($"{Environment.NewLine}{UITexts.ExitMessage}");
+            return Console.ReadKey().Key != ConsoleKey.Escape;
+        }
     }
 }

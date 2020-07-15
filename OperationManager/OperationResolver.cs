@@ -5,11 +5,11 @@ using System.Linq;
 
 namespace OperationManager
 {
-    public class OperationResolver
+    public class Resolver
     {
         public IEnumerable<IOperation> Operations { get; }
 
-        public OperationResolver()
+        public Resolver()
         {
             Operations = new PluginManager().GetOperations<IOperation>();
         }

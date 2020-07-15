@@ -11,5 +11,6 @@
         public const string FailureMessage = "Operations are not available.";
 
         public const string ResultMessage = "Result of the operation: ";
+        public const string ExitMessage = "Press Esc to exit, press anything else to continue.";
     }
 }
