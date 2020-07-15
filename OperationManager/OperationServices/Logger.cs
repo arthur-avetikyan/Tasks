@@ -1,8 +1,9 @@
-﻿using System;
+﻿using OperationManager.IOperationServices;
+using System;
 using System.IO;
 using System.Text;
 
-namespace OperationManager.Logs
+namespace OperationManager.OperationServices
 {
     public class Logger : ILogger
     {

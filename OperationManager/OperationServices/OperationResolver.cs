@@ -1,27 +1,28 @@
 ﻿using Operation;
+using OperationManager.IOperationServices;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace OperationManager
 {
-    public class Resolver
+    public class OperationResolver : IOperationResolver
     {
         public IEnumerable<IOperation> Operations { get; }
 
-        public Resolver()
+        public OperationResolver(IPluginManagerService pluginManagerService)
         {
-            Operations = new PluginManager().GetOperations<IOperation>();
+            Operations = pluginManagerService.GetOperations<IOperation>();
         }
 
-        public OperationPerformer ResolveOperation(string option)
+        public IOperation ResolveOperation(string option = null)
         {
-            IOperation lOperation = Operations
+            IOperation lOperation = option == null ? Operations.FirstOrDefault() : Operations
                 .Where(item => item.OperationRepresentation.Equals(option) || item.OperationName.Equals(option))
                 .FirstOrDefault();
             if (lOperation == null)
                 throw new ArgumentException("Operation not found", option);
-            return new OperationPerformer(lOperation);
+            return lOperation;
         }
     }
 }

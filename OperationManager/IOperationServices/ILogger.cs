@@ -1,4 +1,4 @@
-﻿namespace OperationManager.Logs
+﻿namespace OperationManager.IOperationServices
 {
     public interface ILogger
     {

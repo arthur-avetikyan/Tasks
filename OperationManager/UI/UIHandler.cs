@@ -7,7 +7,7 @@ namespace OperationManager.UI
 {
     public static class UIHandler
     {
-        public static string GetOperation(IEnumerable<IOperation> availableOperations)
+        public static string GetOperationInput(IEnumerable<IOperation> availableOperations)
         {
             Console.WriteLine($"{Environment.NewLine} {UITexts.OperationSelectRequest}");
             foreach (IOperation item in availableOperations)

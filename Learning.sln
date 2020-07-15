@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Matrix", "Matrix\Matrix.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Writer", "Writer\Writer.csproj", "{611006C2-CEDD-41C4-AE10-53002004B71C}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Operation Libraries", "Operation Libraries", "{2BFBEA1E-8A5A-42BC-BBB1-041C541DF4F0}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "OperationLibraries", "OperationLibraries", "{2BFBEA1E-8A5A-42BC-BBB1-041C541DF4F0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OperationManager", "OperationManager\OperationManager.csproj", "{BE30CF2A-D23A-4644-A0A8-2B0F21D916BF}"
 EndProject
@@ -17,7 +17,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Division", "Operation Libra
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Multiplication", "Operation Libraries\Multiplication\Multiplication.csproj", "{D0C1A49C-300B-4000-A3C5-98039D5FC7B6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Operation", "Operation Libraries\Operation\Operation.csproj", "{BAFB0441-44D0-4293-B664-9423FDF2AAC9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IOperation", "Operation Libraries\Operation\IOperation.csproj", "{BAFB0441-44D0-4293-B664-9423FDF2AAC9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Subtraction", "Operation Libraries\Subtraction\Subtraction.csproj", "{C680A427-FD3E-4193-B448-9DB825C94539}"
 EndProject

@@ -7,8 +7,8 @@
     <ProjectGuid>{BAFB0441-44D0-4293-B664-9423FDF2AAC9}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Operation</RootNamespace>
-    <AssemblyName>Operation</AssemblyName>
+    <RootNamespace>IOperation</RootNamespace>
+    <AssemblyName>IOperation</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>

@@ -1,4 +1,4 @@
-﻿using OperationManager.Logs;
+﻿using OperationManager.IOperationServices;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -6,7 +6,7 @@ using System.Reflection;
 
 namespace OperationManager
 {
-    internal class PluginManager
+    internal class PluginManager : IPluginManagerService
     {
         private const string _pluginsDirectory = "Plugins";
         private const string _extension = "*Operations.dll";
@@ -14,10 +14,10 @@ namespace OperationManager
         private readonly string _workingDirectory;
         private ILogger _logger;
 
-        public PluginManager()
+        public PluginManager(ILogger logger)
         {
             _workingDirectory = Directory.GetCurrentDirectory();
-            _logger = new Logger();
+            _logger = logger;
         }
 
         public List<T> GetOperations<T>()
