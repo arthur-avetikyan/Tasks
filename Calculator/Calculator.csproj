@@ -5,6 +5,10 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile></DocumentationFile>
+  </PropertyGroup>
+
   <ItemGroup>
     <Compile Remove="Plugins\**" />
     <EmbeddedResource Remove="Plugins\**" />
@@ -12,10 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Autofac" Version="5.2.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.1.6" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="3.1.6" />
-    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="3.1.6" />
   </ItemGroup>
 
   <ItemGroup>
