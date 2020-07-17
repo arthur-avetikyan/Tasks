@@ -1,18 +1,18 @@
-﻿using Operation;
-using OperationManager.IOperationServices;
+﻿using Calculator.IOperationServices;
+using Operation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace OperationManager
+namespace Calculator
 {
-    public class OperationResolver : IOperationResolver
+    public class OperationResolver : IOperationResolverService
     {
-        private ILogger _logger;
+        private ILoggerService _logger;
 
         public IEnumerable<IOperation> Operations { get; }
 
-        public OperationResolver(IPluginManagerService pluginManagerService, ILogger logger)
+        public OperationResolver(IPluginManagerService pluginManagerService, ILoggerService logger)
         {
             Operations = pluginManagerService.GetOperations<IOperation>();
             _logger = logger;

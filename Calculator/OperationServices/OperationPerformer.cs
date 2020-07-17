@@ -1,15 +1,11 @@
-﻿using Operation;
-using OperationManager.IOperationServices;
+﻿using Calculator.IOperationServices;
+using Operation;
 
-namespace OperationManager.OperationServices
+namespace Calculator.OperationServices
 {
-    public class OperationPerformer : IOperationPerformer
+    public class OperationPerformer : IOperationPerformerService
     {
         private IOperation _operation;
-
-        public OperationPerformer()
-        {
-        }
 
         public double PerformOperation(params double[] numbers)
         {

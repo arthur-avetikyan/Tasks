@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
-namespace OperationManager.IOperationServices
+namespace Calculator.IOperationServices
 {
     public interface ICalculationService
     {

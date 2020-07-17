@@ -1,20 +1,16 @@
-﻿using OperationManager.IOperationServices;
-using System;
+﻿using Calculator.IOperationServices;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace OperationManager.OperationServices
+namespace Calculator.OperationServices
 {
     public class Calculation : ICalculationService
     {
-        private IOperationResolver _resolver;
-        private IOperationPerformer _operationPerformer;
+        private IOperationResolverService _resolver;
+        private IOperationPerformerService _operationPerformer;
         private int _operationsCount = 0;
         private double _result = 0;
 
-        public Calculation(IOperationResolver resolver, IOperationPerformer operationPerformer)
+        public Calculation(IOperationResolverService resolver, IOperationPerformerService operationPerformer)
         {
             _resolver = resolver;
             _operationPerformer = operationPerformer;
@@ -26,10 +22,10 @@ namespace OperationManager.OperationServices
             {
                 _result = numbers[_operationsCount];
             }
-            else if (options.Contains("*")||options.Contains("/"))
-            {
+            //else if (options.Contains("*")||options.Contains("/"))
+            //{
 
-            }
+            //}
             else
             {
                 _result = CalculatePair(options[_operationsCount - 1], _result, numbers[_operationsCount]);

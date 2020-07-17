@@ -1,11 +1,11 @@
-﻿using OperationManager.IOperationServices;
+﻿using Calculator.IOperationServices;
 using System;
 using System.IO;
 using System.Text;
 
-namespace OperationManager.OperationServices
+namespace Calculator.OperationServices
 {
-    public class Logger : ILogger
+    public class Logger : ILoggerService
     {
         private const string _logFileDirectory = "Logs";
         private const string _logFileName = "Event_Log";

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace OperationManager.IOperationServices
+namespace Calculator.IOperationServices
 {
     public interface IPluginManagerService
     {

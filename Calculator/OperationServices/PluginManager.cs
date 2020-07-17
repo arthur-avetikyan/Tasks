@@ -1,10 +1,10 @@
-﻿using OperationManager.IOperationServices;
+﻿using Calculator.IOperationServices;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 
-namespace OperationManager
+namespace Calculator
 {
     internal class PluginManager : IPluginManagerService
     {
@@ -12,9 +12,9 @@ namespace OperationManager
         private const string _extension = "*Operations.dll";
 
         private readonly string _workingDirectory;
-        private ILogger _logger;
+        private ILoggerService _logger;
 
-        public PluginManager(ILogger logger)
+        public PluginManager(ILoggerService logger)
         {
             if (System.Diagnostics.Debugger.IsAttached)
                 _workingDirectory = Path.Combine(Directory.GetCurrentDirectory(), "..", "..", "..");
