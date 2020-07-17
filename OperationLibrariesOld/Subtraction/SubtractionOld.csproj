@@ -45,9 +45,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Operation\IOperation.csproj">
-      <Project>{BAFB0441-44D0-4293-B664-9423FDF2AAC9}</Project>
-      <Name>IOperation</Name>
+    <ProjectReference Include="..\..\OperationLibraries\Operation\Operation.csproj">
+      <Project>{504FA6DE-D947-4383-B3CE-FC427C79AC64}</Project>
+      <Name>Operation</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

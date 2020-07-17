@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <AssemblyName>DivisionOperations</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Operation\Operation.csproj" />
+  </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="cd &quot;$(SolutionDir)Calculator\&quot;&#xD;&#xA;if not exist Plugins md Plugins&#xD;&#xA;cd &quot;$(TargetDir)&quot;&#xD;&#xA;copy &quot;$(TargetDir)\*Operations.dll&quot; &quot;$(SolutionDir)Calculator\Plugins\&quot;" />
+  </Target>
+
+</Project>

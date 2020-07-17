@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using Autofac.Core;
 using OperationManager.IOperationServices;
 using OperationManager.OperationServices;
 using OperationManager.UI;

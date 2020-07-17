@@ -23,7 +23,7 @@ namespace OperationManager
             IOperation lOperation = option == null ? Operations.FirstOrDefault() : Operations
                 .Where(item => item.OperationRepresentation.Equals(option) || item.OperationName.Equals(option))
                 .FirstOrDefault();
-            _logger.Record(LogTypes.Info, $"Operation switched to {lOperation}");
+            _logger.RecordLog(LogTypes.Info, $"Operation switched to {lOperation}");
             if (lOperation == null)
                 throw new ArgumentException("Operation not found", option);
             return lOperation;
