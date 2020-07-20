@@ -2,7 +2,7 @@
 
 namespace Calculator
 {
-    public class Start
+    public class ApplicationStart
     {
         private IOperationResolverService _resolver;
         private IOperationPerformerService _operationPerformer;
@@ -12,7 +12,7 @@ namespace Calculator
         private double _result;
         private bool _next;
 
-        public Start(IOperationResolverService resolver,
+        public ApplicationStart(IOperationResolverService resolver,
                      IOperationPerformerService operationPerformer,
                      IUIHandllerService uIHandllerService)
         {

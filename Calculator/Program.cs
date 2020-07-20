@@ -13,7 +13,7 @@ namespace Calculator
         {
             _serviceProvider = RegisterServices();
             IServiceScope scope = _serviceProvider.CreateScope();
-            scope.ServiceProvider.GetService<Start>().Run();
+            scope.ServiceProvider.GetService<ApplicationStart>().Run();
 
             scope.Dispose();
         }
@@ -26,7 +26,7 @@ namespace Calculator
                 .AddScoped<IPluginManagerService, PluginManager>()
                 .AddScoped<IOperationResolverService, OperationResolver>()
                 .AddScoped<IOperationPerformerService, OperationPerformer>()
-                .AddScoped<Start>()
+                .AddScoped<ApplicationStart>()
                 .BuildServiceProvider(true);
         }
     }
