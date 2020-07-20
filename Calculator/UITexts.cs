@@ -1,4 +1,4 @@
-﻿namespace OperationManager.UI
+﻿namespace Calculator
 {
     public static class UITexts
     {

@@ -1,13 +1,14 @@
-﻿using Operation;
+﻿using Calculator.IOperationServices;
+using Operation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace OperationManager.UI
+namespace Calculator.OperationServices
 {
-    public static class UIHandler
+    public class UIHandler : IUIHandllerService
     {
-        public static string GetOperationInput(IEnumerable<IOperation> availableOperations)
+        public string GetOperationInput(IEnumerable<IOperation> availableOperations)
         {
             Console.WriteLine($"{Environment.NewLine} {UITexts.OperationSelectRequest}");
             foreach (IOperation item in availableOperations)
@@ -17,7 +18,7 @@ namespace OperationManager.UI
             return ReceiveOperationInput(availableOperations);
         }
 
-        private static string ReceiveOperationInput(IEnumerable<IOperation> operations)
+        private string ReceiveOperationInput(IEnumerable<IOperation> operations)
         {
             string lOperation;
             do
@@ -30,7 +31,7 @@ namespace OperationManager.UI
             while (true);
         }
 
-        private static string GetValidOption(IEnumerable<IOperation> operations)
+        private string GetValidOption(IEnumerable<IOperation> operations)
         {
             string lOption = Console.ReadLine();
             if (operations.Any(item => item.OperationRepresentation.Equals(lOption) || item.OperationName.Equals(lOption)))
@@ -38,7 +39,7 @@ namespace OperationManager.UI
             return null;
         }
 
-        public static double[] GetNumbersInput()
+        public double[] GetNumbersInput()
         {
             do
             {
@@ -51,7 +52,7 @@ namespace OperationManager.UI
             while (true);
         }
 
-        private static bool ValidateNumericInputs(string[] input, ref double[] numbers)
+        private bool ValidateNumericInputs(string[] input, ref double[] numbers)
         {
             if (input.Length < 1)
             {
@@ -69,7 +70,7 @@ namespace OperationManager.UI
             return true;
         }
 
-        public static void DisplayOutput(string option, double result, params double[] numbers)
+        public void DisplayOutput(string option, double result, params double[] numbers)
         {
             Console.Write($"{Environment.NewLine} {UITexts.ResultMessage} {numbers[0]} ");
             for (int i = 1; i < numbers.Length; i++)
@@ -79,7 +80,7 @@ namespace OperationManager.UI
             Console.Write($"= {result}");
         }
 
-        public static bool GetExitOption()
+        public bool GetExitOption()
         {
             Console.WriteLine($"{Environment.NewLine}{UITexts.ExitMessage}");
             return Console.ReadKey().Key != ConsoleKey.Escape;
