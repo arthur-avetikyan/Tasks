@@ -16,11 +16,24 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="3.1.6" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="3.1.6" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="3.1.6" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.1.6" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\OperationLibraries\Operation\Operation.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <None Update="appsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <!--<Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="if $(ConfigurationName) == Debug (&#xD;&#xA;&quot;$(DevEnvDir)\devenv&quot; &quot;$(SolutionDir)Learning.sln&quot; -build Debug -project &quot;$(SolutionDir)OperationLibraries\Addition\Addition.csproj&quot;&#xD;&#xA;&quot;$(DevEnvDir)\devenv&quot; &quot;$(SolutionDir)Learning.sln&quot; -build Debug -project &quot;$(SolutionDir)OperationLibraries\Division\Division.csproj&quot;&#xD;&#xA;&quot;$(DevEnvDir)\devenv&quot; &quot;$(SolutionDir)Learning.sln&quot; -build Debug -project &quot;$(SolutionDir)OperationLibraries\Multiplication\Multiplication.csproj&quot;&#xD;&#xA;&quot;$(DevEnvDir)\devenv&quot; &quot;$(SolutionDir)Learning.sln&quot; -build Debug -project &quot;$(SolutionDir)OperationLibraries\Subtraction\Subtraction.csproj&quot;)&#xD;&#xA;if $(ConfigurationName) == Release (&#xD;&#xA;&quot;$(DevEnvDir)\devenv&quot; &quot;$(SolutionDir)Learning.sln&quot; -build Release -project &quot;$(SolutionDir)OperationLibraries\Addition\Addition.csproj&quot;&#xD;&#xA;&quot;$(DevEnvDir)\devenv&quot; &quot;$(SolutionDir)Learning.sln&quot; -build Release -project &quot;$(SolutionDir)OperationLibraries\Division\Division.csproj&quot;&#xD;&#xA;&quot;$(DevEnvDir)\devenv&quot; &quot;$(SolutionDir)Learning.sln&quot; -build Release -project &quot;$(SolutionDir)OperationLibraries\Multiplication\Multiplication.csproj&quot;&#xD;&#xA;&quot;$(DevEnvDir)\devenv&quot; &quot;$(SolutionDir)Learning.sln&quot; -build Release -project &quot;$(SolutionDir)OperationLibraries\Subtraction\Subtraction.csproj&quot;)" />
+  </Target>-->
 
 </Project>

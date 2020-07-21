@@ -2,8 +2,6 @@
 {
     public interface ILoggerService
     {
-        void RecordLog(LogTypes logTypes, string message);
-
         void RecordLog(LogTypes logTypes, params string[] messages);
     }
 

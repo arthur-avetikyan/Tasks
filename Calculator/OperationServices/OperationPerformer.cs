@@ -17,9 +17,5 @@ namespace Calculator.OperationServices
             _operation = operation;
         }
 
-        public void SetOperation(IOperation operation)
-        {
-            _operation = operation;
-        }
     }
 }

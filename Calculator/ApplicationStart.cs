@@ -4,6 +4,7 @@ namespace Calculator
 {
     public class ApplicationStart
     {
+        private ILoggerService _loggerService;
         private IOperationResolverService _resolver;
         private IOperationPerformerService _operationPerformer;
         private IUIHandllerService _uIHandller;
@@ -14,8 +15,10 @@ namespace Calculator
 
         public ApplicationStart(IOperationResolverService resolver,
                      IOperationPerformerService operationPerformer,
-                     IUIHandllerService uIHandllerService)
+                     IUIHandllerService uIHandllerService,
+                     ILoggerService loggerService)
         {
+            _loggerService = loggerService;
             _resolver = resolver;
             _operationPerformer = operationPerformer;
             _uIHandller = uIHandllerService;
@@ -23,6 +26,7 @@ namespace Calculator
 
         public void Run()
         {
+            _loggerService.RecordLog(LogTypes.Event, "Application started.");
             do
             {
                 _option = _uIHandller.GetOperationInput(_resolver.Operations);
@@ -30,9 +34,11 @@ namespace Calculator
                 _numbers = _uIHandller.GetNumbersInput();
                 _result = _operationPerformer.PerformOperation(_numbers);
                 _uIHandller.DisplayOutput(_option, _result, _numbers);
+
                 _next = _uIHandller.GetExitOption();
             }
             while (_next);
+            _loggerService.RecordLog(LogTypes.Event, "Application ended.");
         }
     }
 }

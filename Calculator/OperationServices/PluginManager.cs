@@ -1,4 +1,5 @@
 ﻿using Calculator.IOperationServices;
+using Calculator.Settings;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -8,18 +9,12 @@ namespace Calculator
 {
     internal class PluginManager : IPluginManagerService
     {
-        private const string _pluginsDirectory = "Plugins";
-        private const string _extension = "*Operations.dll";
-
-        private readonly string _workingDirectory;
         private ILoggerService _logger;
+        private PluginSettings _pluginSettings;
 
-        public PluginManager(ILoggerService logger)
+        public PluginManager(ILoggerService logger, PluginSettings pluginSettings)
         {
-            if (System.Diagnostics.Debugger.IsAttached)
-                _workingDirectory = Path.Combine(Directory.GetCurrentDirectory(), "..", "..", "..");
-            else
-                _workingDirectory = Path.Combine(Directory.GetCurrentDirectory(), "..");
+            _pluginSettings = pluginSettings;
             _logger = logger;
         }
 
@@ -51,14 +46,14 @@ namespace Calculator
 
         private string[] GetOperationAssemblyFiles()
         {
-            string lPath = Path.Combine(_workingDirectory, _pluginsDirectory);
+            string lPath = Path.Combine(Path.Combine(Directory.GetCurrentDirectory(), _pluginSettings.PluginsDirectoryLevel), _pluginSettings.PluginsDirectory);
             if (Directory.Exists(lPath))
-                return Directory.GetFiles(lPath, _extension, SearchOption.TopDirectoryOnly);
+                return Directory.GetFiles(lPath, _pluginSettings.PluginFileNameConvention, SearchOption.TopDirectoryOnly);
             else
             {
                 DirectoryInfo lDir = Directory.CreateDirectory(lPath);
                 _logger.RecordLog(LogTypes.Warning, "Plugins directory does not exist.", lDir.FullName);
-                return Directory.GetFiles(lDir.FullName, _extension, SearchOption.TopDirectoryOnly);
+                return Directory.GetFiles(lDir.FullName, _pluginSettings.PluginFileNameConvention, SearchOption.TopDirectoryOnly);
             }
         }
 
