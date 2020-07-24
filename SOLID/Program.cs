@@ -34,8 +34,8 @@ namespace SOLID
 
         private static void RunISPGood()
         {
-            Exercises exerciser = new Exercises( new Swimmer(), new Runner(), new Boxer());
-            exerciser.Exercise();
+            //Exercises exerciser = new Exercises( new Swimmer(), new Runner(), new Boxer());
+            //exerciser.Exercise();
         }
 
         private static void RunISPBad()
