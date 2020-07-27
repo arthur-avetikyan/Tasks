@@ -6,8 +6,6 @@ namespace Entities
     {
         public Guid Id { get; set; }
 
-        public Guid ProductId { get; set; }
-
         public int InStock { get; set; }
     }
 }

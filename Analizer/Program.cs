@@ -22,7 +22,7 @@ namespace Analizer
         private static void RegisterServices()
         {
             _configuration = new ConfigurationBuilder()
-               .AddJsonFile(@"C:\Users\arthu\source\repos\Tasks\Analizer\appsettings.json",
+               .AddJsonFile("appsettings.json",
                             optional: false,
                             reloadOnChange: true)
                .Build();

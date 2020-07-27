@@ -363,3 +363,4 @@ MigrationBackup/
 FodyWeavers.xsd
 /Builds/Plugins/secureOperations.dll
 /Builds/Plugins/badOperations.dll
+/DataAccess/Migrations
