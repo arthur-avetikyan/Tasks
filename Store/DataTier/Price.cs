@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Entities
+namespace Store.Entities
 {
     public class Price : IEntityBase
     {
@@ -9,5 +9,9 @@ namespace Entities
         public string Currency { get; set; }
 
         public double Cost { get; set; }
+
+        public Guid ProductId { get; set; }
+
+        public Product Product { get; set; }
     }
 }

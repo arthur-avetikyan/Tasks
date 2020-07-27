@@ -1,10 +1,10 @@
-﻿using DataAccess;
-using IServices;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Services;
+using Store.DAL;
+using Store.DAL.Infrastructure;
+using Store.Entities;
 using System;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -46,8 +46,8 @@ namespace Market
                 s => s.MigrationsAssembly(Assembly.GetAssembly(typeof(ApplicationDbContext)).FullName)));
 
             serviceCollection
-                .AddScoped<IDiscountProvider, DiscountProvider>()
-                .AddScoped<ISalesManager, SalesManager>()
+                .AddScoped<IUnitOfWork, UnitOfWork>()
+                .AddScoped<IRepository<Product>, Repository<Product>>()
                 .AddScoped<ApplicationStart>();
 
             _serviceProvider = serviceCollection.BuildServiceProvider(true);

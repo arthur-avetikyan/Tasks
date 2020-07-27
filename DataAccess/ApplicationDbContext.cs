@@ -1,8 +1,8 @@
-﻿using DataAccess.Configuration;
-using Entities;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using Store.DAL.Configuration;
+using Store.Entities;
 
-namespace DataAccess
+namespace Store.DAL
 {
     public class ApplicationDbContext : DbContext
     {

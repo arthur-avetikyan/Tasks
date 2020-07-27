@@ -2,7 +2,7 @@
 using System;
 using System.Threading.Tasks;
 
-namespace DataAccess.Infrastructure
+namespace Store.DAL.Infrastructure
 {
     public class UnitOfWork : IUnitOfWork, IDisposable
     {

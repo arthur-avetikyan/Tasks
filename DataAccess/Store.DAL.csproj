@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Store\DataTier\Entities.csproj" />
+    <ProjectReference Include="..\Store\DataTier\Store.Entities.csproj" />
   </ItemGroup>
 
 </Project>

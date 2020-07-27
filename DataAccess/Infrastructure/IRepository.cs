@@ -1,9 +1,9 @@
-﻿using Entities;
+﻿using Store.Entities;
 using System;
 using System.Linq;
 using System.Linq.Expressions;
 
-namespace DataAccess.Infrastructure
+namespace Store.DAL.Infrastructure
 {
     public interface IRepository<TEntity> where TEntity : class, IEntityBase
     {

@@ -1,13 +1,14 @@
-﻿using Entities;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Store.Entities;
 
-namespace DataAccess.Configuration
+namespace Store.DAL.Configuration
 {
     public class StockConfiguration : IEntityTypeConfiguration<Stock>
     {
         public void Configure(EntityTypeBuilder<Stock> builder)
         {
+            builder.ToTable("Stock");
             builder.HasKey(k => k.Id);
             builder.Property(p => p.Id).ValueGeneratedOnAdd();
         }

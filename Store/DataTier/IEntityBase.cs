@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Entities
+namespace Store.Entities
 {
     public interface IEntityBase
     {
