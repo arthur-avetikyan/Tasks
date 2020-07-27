@@ -43,7 +43,8 @@ namespace Market
 
             serviceCollection
                 .AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(_configuration.GetConnectionString("DefaultConnection"),
-                s => s.MigrationsAssembly(Assembly.GetAssembly(typeof(ApplicationDbContext)).FullName)));
+                s => s.MigrationsAssembly(Assembly.GetAssembly(typeof(ApplicationDbContext)).FullName))
+                .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking));
 
             serviceCollection
                 .AddScoped<IUnitOfWork, UnitOfWork>()

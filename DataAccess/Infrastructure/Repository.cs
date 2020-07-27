@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Store.Entities;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 
@@ -22,9 +23,9 @@ namespace Store.DAL.Infrastructure
             dbSet.Remove(entity);
         }
 
-        public IQueryable<TEntity> GetAll()
+        public IEnumerable<TEntity> GetAll()
         {
-            return dbSet.AsQueryable<TEntity>();
+            return dbSet.AsEnumerable<TEntity>();
         }
 
         public TEntity GetById(Guid id)
@@ -37,12 +38,7 @@ namespace Store.DAL.Infrastructure
             dbSet.Add(entity);
         }
 
-        public void Update(TEntity entity)
-        {
-            dbSet.Update(entity);
-        }
-
-        public IQueryable<TEntity> Get(
+        public IEnumerable<TEntity> Get(
             Expression<Func<TEntity, bool>> filter = null,
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
             string includeProperties = "")
@@ -58,9 +54,9 @@ namespace Store.DAL.Infrastructure
             }
 
             if (orderBy != null)
-                return orderBy(query);
+                return orderBy(query).AsEnumerable();
             else
-                return query;
+                return query.AsEnumerable();
         }
     }
 }

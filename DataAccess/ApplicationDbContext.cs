@@ -26,9 +26,9 @@ namespace Store.DAL
             builder.ApplyConfiguration(new ExchangeRateConfiguration());
         }
 
-        public DbSet<Product> _products { get; set; }
-        public DbSet<Stock> _stocks { get; set; }
-        public DbSet<Price> _pricess { get; set; }
-        public DbSet<ExchangeRate> _exchangeRates { get; set; }
+        public DbSet<Product> Products { get; set; }
+        public DbSet<Stock> Stocks { get; set; }
+        public DbSet<Price> Pricess { get; set; }
+        public DbSet<ExchangeRate> ExchangeRates { get; set; }
     }
 }
