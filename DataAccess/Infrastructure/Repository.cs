@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 
 namespace Store.DAL.Infrastructure
 {
@@ -18,25 +19,15 @@ namespace Store.DAL.Infrastructure
             dbSet = context.Set<TEntity>();
         }
 
-        public void Delete(TEntity entity)
-        {
-            dbSet.Remove(entity);
-        }
+        public TEntity GetById(Guid id) => dbSet.Find(id);
 
-        public IEnumerable<TEntity> GetAll()
-        {
-            return dbSet.AsEnumerable<TEntity>();
-        }
+        public void Insert(TEntity entity) => dbSet.Add(entity);
 
-        public TEntity GetById(Guid id)
-        {
-            return dbSet.Find(id);
-        }
+        public async Task InsertRange(IEnumerable<TEntity> entities) => await dbSet.AddRangeAsync(entities);
 
-        public void Insert(TEntity entity)
-        {
-            dbSet.Add(entity);
-        }
+        public void Delete(Guid id) => dbSet.Remove(GetById(id));
+
+        public void DeleteRange(IEnumerable<TEntity> entities) => dbSet.RemoveRange(entities);
 
         public IEnumerable<TEntity> Get(
             Expression<Func<TEntity, bool>> filter = null,
@@ -48,15 +39,15 @@ namespace Store.DAL.Infrastructure
             if (filter != null)
                 query = query.Where(filter);
 
-            foreach (var includeProperty in includeProperties.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+            foreach (string includeProperty in includeProperties.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
             {
                 query = query.Include(includeProperty);
             }
 
             if (orderBy != null)
-                return orderBy(query).AsEnumerable();
+                return orderBy(query).AsNoTracking().AsEnumerable();
             else
-                return query.AsEnumerable();
+                return query.AsNoTracking().AsEnumerable();
         }
     }
 }

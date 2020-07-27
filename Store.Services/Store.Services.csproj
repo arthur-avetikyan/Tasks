@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DataAccess\Store.DAL.csproj" />
+    <ProjectReference Include="..\Store.IServices\Store.IServices.csproj" />
+    <ProjectReference Include="..\Store\DataTier\Store.Entities.csproj" />
+  </ItemGroup>
+
+</Project>

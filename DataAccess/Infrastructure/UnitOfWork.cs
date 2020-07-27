@@ -7,6 +7,8 @@ namespace Store.DAL.Infrastructure
     public class UnitOfWork : IUnitOfWork, IDisposable
     {
         private readonly DbContext _context;
+        private bool _disposed = false;
+
 
         public UnitOfWork(ApplicationDbContext context)
         {
@@ -23,18 +25,17 @@ namespace Store.DAL.Infrastructure
             await _context.SaveChangesAsync();
         }
 
-        private bool disposed = false;
 
         protected virtual void Dispose(bool disposing)
         {
-            if (!this.disposed)
+            if (!_disposed)
             {
                 if (disposing)
                 {
                     _context.Dispose();
                 }
             }
-            this.disposed = true;
+            _disposed = true;
         }
 
         public void Dispose()

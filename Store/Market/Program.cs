@@ -5,6 +5,8 @@ using Microsoft.Extensions.Hosting;
 using Store.DAL;
 using Store.DAL.Infrastructure;
 using Store.Entities;
+using Store.IServices;
+using Store.Services;
 using System;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -22,7 +24,7 @@ namespace Market
             {
                 await host.StartAsync();
                 IHostApplicationLifetime lifetime = host.Services.GetRequiredService<IHostApplicationLifetime>();
-                
+
                 using (IServiceScope lScope = _serviceProvider.CreateScope())
                 {
                     lScope.ServiceProvider.GetService<ApplicationStart>().Run();
@@ -43,12 +45,14 @@ namespace Market
 
             serviceCollection
                 .AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(_configuration.GetConnectionString("DefaultConnection"),
-                s => s.MigrationsAssembly(Assembly.GetAssembly(typeof(ApplicationDbContext)).FullName))
-                .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking));
+                s => s.MigrationsAssembly(Assembly.GetAssembly(typeof(ApplicationDbContext)).FullName)));
 
             serviceCollection
                 .AddScoped<IUnitOfWork, UnitOfWork>()
-                .AddScoped<IRepository<Product>, Repository<Product>>()
+                .AddScoped<IProductService, ProductService>()
+                .AddScoped<IExchangeRateService, ExchangeRateService>()
+                .AddScoped<IStockService, StockService>()
+                .AddScoped<IPriceService, PriceService>()
                 .AddScoped<ApplicationStart>();
 
             _serviceProvider = serviceCollection.BuildServiceProvider(true);
