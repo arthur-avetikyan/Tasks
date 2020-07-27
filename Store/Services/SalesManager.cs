@@ -9,7 +9,7 @@ namespace Services
     {
         public void SellProduct()
         {
-            throw new NotImplementedException();
+            
         }
     }
 }

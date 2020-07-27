@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 
 namespace DataAccess.Infrastructure
 {
-    interface IRepository<TEntity> where TEntity : class, IEntityBase
+    public interface IRepository<TEntity> where TEntity : class, IEntityBase
     {
         IQueryable<TEntity> GetAll();
 
