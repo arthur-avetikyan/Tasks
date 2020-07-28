@@ -16,7 +16,7 @@ namespace Analizer
 
         }
 
-        public override void GetData()
+        protected override void GetData()
         {
             string lPath = System.IO.Path.Combine(_analizerData.Settings.Directory, $"{_analizerData.Settings.SourceFileName}{_format}");
             try
@@ -37,13 +37,13 @@ namespace Analizer
             }
         }
 
-        public override void Analize()
+        protected override void Analize()
         {
             base.Analize();
             _longWords = _analizerData.Words.Where(w => w.Length > 7).Distinct().OrderBy(o => o);
         }
 
-        public override void ExportData()
+        protected override void ExportData()
         {
             _analizerData.Data.AppendLine($"Words that have more than 7 charachters.");
             foreach (string item in _longWords)

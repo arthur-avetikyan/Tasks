@@ -15,7 +15,7 @@ namespace Analizer
 
         }
 
-        public override void GetData()
+        protected override void GetData()
         {
             try
             {
@@ -35,13 +35,13 @@ namespace Analizer
             }
         }
 
-        public override void Analize()
+        protected override void Analize()
         {
             base.Analize();
             _shortWords = _analizerData.Words.Where(w => w.Length < 3).Distinct().OrderBy(o => o);
         }
 
-        public override void ExportData()
+        protected override void ExportData()
         {
             _analizerData.Data.AppendLine($"Words that have less than 3 charachters.");
             foreach (string item in _shortWords)

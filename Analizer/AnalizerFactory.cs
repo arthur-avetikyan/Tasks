@@ -43,6 +43,10 @@ namespace Analizer
             {
                 //Log here
             }
+            catch(Exception ex)
+            {
+                //Log here
+            }
             return lTypesList;
         }
     }

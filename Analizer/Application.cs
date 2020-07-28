@@ -1,4 +1,6 @@
-﻿namespace Analizer
+﻿using System;
+
+namespace Analizer
 {
     public class Application
     {
@@ -13,8 +15,13 @@
         {
             foreach (AnalizerTemplate analizer in _analizerFactory.GetAnalizers())
             {
-                analizer.StartSequence();
+                analizer.StartSequence(() => { Console.WriteLine("Failure."); });
             }
+        }
+
+        public void NotifyUser()
+        {
+            Console.WriteLine("Succes!");
         }
     }
 }

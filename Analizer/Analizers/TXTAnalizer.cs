@@ -12,7 +12,7 @@ namespace Analizer
 
         }
 
-        public override void GetData()
+        protected override void GetData()
         {
             try
             {

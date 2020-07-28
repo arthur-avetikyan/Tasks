@@ -16,24 +16,24 @@ namespace Analizer
             _analizerData = analizerData;
         }
 
-        public void StartSequence()
+        public void StartSequence(Action notify)
         {
             GetData();
             ConvertToTextElements();
             Analize();
             ExportData();
-            NotifyResultStatus();
+            notify();
         }
 
-        public abstract void GetData();
+        protected abstract void GetData();
 
-        public void ConvertToTextElements()
+        protected void ConvertToTextElements()
         {
             _analizerData.Words = _analizerData.Data.ToString().Split(_analizerData.Settings.Seperators.ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
             _analizerData.Data.Clear();
         }
 
-        public virtual void Analize()
+        protected virtual void Analize()
         {
             foreach (string item in _analizerData.Words)
             {
@@ -42,7 +42,7 @@ namespace Analizer
             _wordsCount = _analizerData.Words.Count();
         }
 
-        public virtual void ExportData()
+        protected virtual void ExportData()
         {
             try
             {
@@ -61,14 +61,6 @@ namespace Analizer
                 //Log here
                 _analizerData.Success = false;
             }
-        }
-
-        public void NotifyResultStatus()
-        {
-            if (_analizerData.Success)
-                Console.WriteLine("Success!");
-            else
-                Console.WriteLine("Failure!");
         }
     }
 }

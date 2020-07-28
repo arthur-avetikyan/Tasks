@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="10.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Store.DAL\Store.DAL.csproj" />
+    <ProjectReference Include="..\Store.DTO\Store.DTO.csproj" />
+    <ProjectReference Include="..\Store.Entities\Store.Entities.csproj" />
+    <ProjectReference Include="..\Store.IServices\Store.IServices.csproj" />
+  </ItemGroup>
+
+</Project>
