@@ -1,5 +1,4 @@
-﻿using Store.Entities;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -7,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Store.DAL.Infrastructure
 {
-    public interface IRepository<TEntity> where TEntity : class, IEntityBase
+    public interface IRepository<TEntity> where TEntity : class
     {
         void Insert(TEntity entity);
 
@@ -17,11 +16,14 @@ namespace Store.DAL.Infrastructure
 
         void DeleteRange(IEnumerable<TEntity> entities);
 
-        TEntity GetById(Guid id);
+        TEntity GetById(object id);
 
         IEnumerable<TEntity> Get(Expression<Func<TEntity, bool>> filter = null,
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
-            string includeProperties = "");
+            params Expression<Func<TEntity, object>>[] includes);
+
+        IQueryable<TEntity> Query(Expression<Func<TEntity, bool>> filter = null,
+            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null);
 
         void Update(TEntity entity);
 

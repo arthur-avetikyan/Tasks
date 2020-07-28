@@ -62,6 +62,7 @@ namespace Market
                 .AddScoped<IUnitOfWork, UnitOfWork>()
                 .AddSingleton(mapper)
                 .AddScoped<IProductService, ProductService>()
+                .AddScoped<IPriceService, PriceService>()
                 .AddScoped<ApplicationStart>();
 
             _serviceProvider = serviceCollection.BuildServiceProvider(true);

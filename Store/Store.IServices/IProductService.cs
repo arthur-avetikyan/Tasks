@@ -10,6 +10,8 @@ namespace Store.IServices
 
         IEnumerable<ProductDTO> GetTopSellingProducts(int count);
 
-        Task AddProduct(ProductDTO product);
+        void AddProduct(ProductDTO product);
+
+        Task AddProducts(IEnumerable<ProductDTO> products);
     }
 }

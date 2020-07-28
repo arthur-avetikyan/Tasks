@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Store.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,50 +7,60 @@ using System.Threading.Tasks;
 
 namespace Store.DAL.Infrastructure
 {
-    public class Repository<TEntity> : IRepository<TEntity> where TEntity : class, IEntityBase
+    public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
     {
-        private readonly ApplicationDbContext context;
-        private readonly DbSet<TEntity> dbSet;
+        private readonly DbSet<TEntity> _dbSet;
 
         public Repository(ApplicationDbContext context)
         {
-            this.context = context;
-            dbSet = context.Set<TEntity>();
+            _dbSet = context.Set<TEntity>();
         }
 
-        public void Insert(TEntity entity) => dbSet.Add(entity);
+        public void Insert(TEntity entity) => _dbSet.Add(entity);
 
-        public async Task InsertRange(IEnumerable<TEntity> entities) => await dbSet.AddRangeAsync(entities);
+        public async Task InsertRange(IEnumerable<TEntity> entities) => await _dbSet.AddRangeAsync(entities);
 
-        public void Update(TEntity entity) => dbSet.Update(entity);
+        public void Update(TEntity entity) => _dbSet.Update(entity);
 
-        public void UpdateRange(IEnumerable<TEntity> entities) => dbSet.UpdateRange(entities);
+        public void UpdateRange(IEnumerable<TEntity> entities) => _dbSet.UpdateRange(entities);
 
-        public void Delete(TEntity entity) => dbSet.Remove(entity);
+        public void Delete(TEntity entity) => _dbSet.Remove(entity);
 
-        public void DeleteRange(IEnumerable<TEntity> entities) => dbSet.RemoveRange(entities);
+        public void DeleteRange(IEnumerable<TEntity> entities) => _dbSet.RemoveRange(entities);
 
-        public TEntity GetById(Guid id) => dbSet.Find(id);
+        public TEntity GetById(object id) => _dbSet.Find(id);
 
         public IEnumerable<TEntity> Get(
             Expression<Func<TEntity, bool>> filter = null,
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
-            string includeProperties = "")
+            params Expression<Func<TEntity, object>>[] includes)
         {
-            IQueryable<TEntity> query = dbSet;
+            IQueryable<TEntity> query = _dbSet;
 
             if (filter != null)
                 query = query.Where(filter);
 
-            foreach (string includeProperty in includeProperties.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
-            {
-                query = query.Include(includeProperty);
-            }
+            foreach (Expression<Func<TEntity, object>> include in includes)
+                query = query.Include(include);
 
             if (orderBy != null)
                 return orderBy(query).AsNoTracking().AsEnumerable();
             else
                 return query.AsNoTracking().AsEnumerable();
+        }
+
+        public IQueryable<TEntity> Query(Expression<Func<TEntity, bool>> filter = null,
+            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null)
+        {
+            IQueryable<TEntity> query = _dbSet;
+
+            if (filter != null)
+                query = query.Where(filter);
+
+            if (orderBy != null)
+                query = orderBy(query);
+
+            return query;
         }
     }
 }

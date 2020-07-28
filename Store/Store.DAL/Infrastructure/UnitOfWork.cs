@@ -1,5 +1,5 @@
-﻿using Store.Entities;
-using System;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Store.DAL.Infrastructure
@@ -7,13 +7,25 @@ namespace Store.DAL.Infrastructure
     public class UnitOfWork : IUnitOfWork, IDisposable
     {
         private readonly ApplicationDbContext _context;
+        private Dictionary<string, object> _repositories;
 
         public UnitOfWork(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        public IRepository<TEntity> GetRepository<TEntity>() where TEntity : class, IEntityBase => new Repository<TEntity>(_context);
+        public IRepository<TEntity> GetRepository<TEntity>() where TEntity : class
+        {
+            string lTypeName = nameof(TEntity);
+
+            if (_repositories == null)
+                _repositories = new Dictionary<string, object>();
+
+            if (!_repositories.ContainsKey(lTypeName))
+                _repositories.Add(lTypeName, new Repository<TEntity>(_context));
+
+            return (Repository<TEntity>)_repositories[lTypeName];
+        }
 
         public void Save()
         {

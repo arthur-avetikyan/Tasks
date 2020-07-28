@@ -1,7 +1,11 @@
-﻿namespace Store.DTO
+﻿using System;
+
+namespace Store.DTO
 {
-    public class PriceDTO : DTOBase
+    public class PriceDTO : IDTOBase
     {
+        public Guid Id { get; set; }
+
         public string Currency { get; set; }
 
         public double Cost { get; set; }

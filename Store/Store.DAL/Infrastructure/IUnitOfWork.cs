@@ -1,11 +1,10 @@
-﻿using Store.Entities;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
 namespace Store.DAL.Infrastructure
 {
     public interface IUnitOfWork
     {
-        IRepository<TEntity> GetRepository<TEntity>() where TEntity : class, IEntityBase;
+        IRepository<TEntity> GetRepository<TEntity>() where TEntity : class;
 
         void Save();
 

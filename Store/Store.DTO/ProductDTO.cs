@@ -1,8 +1,12 @@
-﻿namespace Store.DTO
+﻿using System;
+
+namespace Store.DTO
 {
-    public class ProductDTO : DTOBase
+    public class ProductDTO : IDTOBase
     {
-         public string Name { get; set; }
+        public Guid Id { get; set; }
+
+        public string Name { get; set; }
 
         public PriceDTO Price { get; set; }
 
