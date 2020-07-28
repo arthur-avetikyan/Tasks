@@ -16,7 +16,7 @@ namespace Store.DAL.Infrastructure
 
         public IRepository<TEntity> GetRepository<TEntity>() where TEntity : class
         {
-            string lTypeName = nameof(TEntity);
+            string lTypeName = typeof(TEntity).FullName;
 
             if (_repositories == null)
                 _repositories = new Dictionary<string, object>();

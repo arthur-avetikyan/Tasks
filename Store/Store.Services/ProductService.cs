@@ -39,8 +39,16 @@ namespace Store.Services
             return _mapper.Map<IEnumerable<ProductDTO>>(_productRepository.Get());
         }
 
+        public IEnumerable<ProductInStockDTO> GetFiltered()
+        {
+            var filtered = _productRepository.Query(w => w.Price.Currency.ToUpper().Equals("AMD"), q => q.OrderBy(o => o.Name))
+                  .Select(s => new ProductInStockDTO { Name = s.Name, InStock = s.Stock.InStock });
+            return filtered;
+        }
+
         public IEnumerable<ProductDTO> GetTopSellingProducts(int count)
         {
+
             //to change
             return _mapper.Map<IEnumerable<ProductDTO>>(
                 _productRepository.Get(null, o => o.OrderByDescending(p => p.Price.Cost), i => i.Price).Take(count));

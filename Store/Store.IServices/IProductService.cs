@@ -13,5 +13,7 @@ namespace Store.IServices
         void AddProduct(ProductDTO product);
 
         Task AddProducts(IEnumerable<ProductDTO> products);
+
+        IEnumerable<ProductInStockDTO> GetFiltered();
     }
 }

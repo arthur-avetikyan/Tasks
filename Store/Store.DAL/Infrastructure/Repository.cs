@@ -49,6 +49,7 @@ namespace Store.DAL.Infrastructure
                 return query.AsNoTracking().AsEnumerable();
         }
 
+        //provide IQueryable?
         public IQueryable<TEntity> Query(Expression<Func<TEntity, bool>> filter = null,
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null)
         {

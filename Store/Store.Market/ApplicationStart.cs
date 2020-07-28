@@ -94,9 +94,14 @@ namespace Market
                 .FirstOrDefault()
                 .Price.Id, 50);
 
-            foreach (var item in _productService.GetTopSellingProducts(5))
+            foreach (ProductDTO item in _productService.GetTopSellingProducts(5))
             {
                 Console.WriteLine(item.Name, item.Price.Cost);
+            }
+
+            foreach (ProductInStockDTO item in _productService.GetFiltered())
+            {
+                Console.WriteLine(item.Name, item.InStock);
             }
         }
     }
