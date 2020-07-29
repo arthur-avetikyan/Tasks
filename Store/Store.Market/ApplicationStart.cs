@@ -16,7 +16,23 @@ namespace Market
 
         public async Task Run()
         {
-            foreach (ProductDTO item in _productService.GetTopSellingProducts(5))
+            _productService.AddProduct(new ProductDTO
+            {
+                Category = new ProductCategoryDTO
+                {
+                    CategoryName = "Stationary",
+                    CategoryTag = "Writing"
+                },
+                ProductName = "Pen",
+                Cost = 150,
+                Stock = new StockDTO
+                {
+                    InStock = 120
+                }
+
+            });
+
+            foreach (ProductDTO item in _productService.GetMostExpenciveProducts(1))
             {
                 Console.WriteLine(item.ProductName, item.Cost);
             }

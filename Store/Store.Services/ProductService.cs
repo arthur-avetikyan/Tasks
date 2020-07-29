@@ -46,7 +46,7 @@ namespace Store.Services
             return filtered;
         }
 
-        public IEnumerable<ProductDTO> GetTopSellingProducts(int count)
+        public IEnumerable<ProductDTO> GetMostExpenciveProducts(int count)
         {
 
             //to change

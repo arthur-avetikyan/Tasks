@@ -8,7 +8,7 @@ namespace Store.IServices
     {
         IEnumerable<ProductDTO> GetAllProducts();
 
-        IEnumerable<ProductDTO> GetTopSellingProducts(int count);
+        IEnumerable<ProductDTO> GetMostExpenciveProducts(int count);
 
         void AddProduct(ProductDTO product);
 

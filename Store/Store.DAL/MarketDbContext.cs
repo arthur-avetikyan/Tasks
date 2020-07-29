@@ -28,7 +28,7 @@ namespace Store.DAL.Infrastructure
         {
             modelBuilder.Entity<ExchangeRate>(entity =>
             {
-                entity.Property(e => e.Id).ValueGeneratedNever();
+                entity.Property(e => e.Id).ValueGeneratedOnAdd();
 
                 entity.Property(e => e.DestinationCurrency).IsUnicode(false);
 
@@ -41,7 +41,7 @@ namespace Store.DAL.Infrastructure
                     .HasName("UQ__Product__2C83A9C3F7EAEAB8")
                     .IsUnique();
 
-                entity.Property(e => e.Id).ValueGeneratedNever();
+                entity.Property(e => e.Id).ValueGeneratedOnAdd();
 
                 entity.Property(e => e.Currency)
                     .IsUnicode(false)
@@ -66,7 +66,7 @@ namespace Store.DAL.Infrastructure
                     .HasName("UQ__ProductC__8517B2E0BE4D5141")
                     .IsUnique();
 
-                entity.Property(e => e.Id).ValueGeneratedNever();
+                entity.Property(e => e.Id).ValueGeneratedOnAdd();
 
                 entity.Property(e => e.CategoryName).IsUnicode(false);
 
@@ -75,7 +75,7 @@ namespace Store.DAL.Infrastructure
 
             modelBuilder.Entity<Stock>(entity =>
             {
-                entity.Property(e => e.Id).ValueGeneratedNever();
+                entity.Property(e => e.Id).ValueGeneratedOnAdd();
 
                 entity.Property(e => e.InStock).HasDefaultValueSql("((0))");
             });
