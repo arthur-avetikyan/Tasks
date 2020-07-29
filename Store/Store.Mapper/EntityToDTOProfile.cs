@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Store.DTO;
-using Store.Entities;
+using Store.Entities.Models;
 
 namespace Store.Mapper
 {
@@ -8,9 +8,9 @@ namespace Store.Mapper
     {
         public EntityToDTOProfile()
         {
-            CreateMap<Price, PriceDTO>().ReverseMap();
             CreateMap<Product, ProductDTO>().ReverseMap();
             CreateMap<Stock, StockDTO>().ReverseMap();
+            CreateMap<ProductCategory, ProductCategoryDTO>().ReverseMap();
         }
     }
 }

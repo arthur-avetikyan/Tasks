@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Store.DAL.Infrastructure;
 using Store.DTO;
-using Store.Entities;
+using Store.Entities.Models;
 using Store.IServices;
 using System.Collections.Generic;
 using System.Linq;
@@ -41,8 +41,8 @@ namespace Store.Services
 
         public IEnumerable<ProductInStockDTO> GetFiltered()
         {
-            var filtered = _productRepository.Query(w => w.Price.Currency.ToUpper().Equals("AMD"), q => q.OrderBy(o => o.Name))
-                  .Select(s => new ProductInStockDTO { Name = s.Name, InStock = s.Stock.InStock });
+            var filtered = _productRepository.Query(w => w.Currency.ToUpper().Equals("AMD"), q => q.OrderBy(o => o.ProductName))
+                  .Select(s => new ProductInStockDTO { Name = s.ProductName, InStock = (int)s.Stock.InStock });
             return filtered;
         }
 
@@ -51,7 +51,7 @@ namespace Store.Services
 
             //to change
             return _mapper.Map<IEnumerable<ProductDTO>>(
-                _productRepository.Get(null, o => o.OrderByDescending(p => p.Price.Cost), i => i.Price).Take(count));
+                _productRepository.Get(null, o => o.OrderByDescending(p => p.Cost)).Take(count));
         }
     }
 }

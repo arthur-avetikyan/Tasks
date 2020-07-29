@@ -11,7 +11,7 @@ namespace Store.DAL.Infrastructure
     {
         private readonly DbSet<TEntity> _dbSet;
 
-        public Repository(ApplicationDbContext context)
+        public Repository(MarketDbContext context)
         {
             _dbSet = context.Set<TEntity>();
         }

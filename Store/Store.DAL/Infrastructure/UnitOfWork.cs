@@ -6,10 +6,10 @@ namespace Store.DAL.Infrastructure
 {
     public class UnitOfWork : IUnitOfWork, IDisposable
     {
-        private readonly ApplicationDbContext _context;
+        private readonly MarketDbContext _context;
         private Dictionary<string, object> _repositories;
 
-        public UnitOfWork(ApplicationDbContext context)
+        public UnitOfWork(MarketDbContext context)
         {
             _context = context;
         }

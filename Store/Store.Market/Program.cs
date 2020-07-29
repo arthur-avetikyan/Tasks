@@ -3,7 +3,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Store.DAL;
 using Store.DAL.Infrastructure;
 using Store.IServices;
 using Store.Mapper;
@@ -53,8 +52,8 @@ namespace Market
                             reloadOnChange: true).Build();
 
             serviceCollection
-                .AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(_configuration.GetConnectionString("DefaultConnection"),
-                s => s.MigrationsAssembly(Assembly.GetAssembly(typeof(ApplicationDbContext)).FullName)));
+                .AddDbContext<MarketDbContext>(options => options.UseSqlServer(_configuration.GetConnectionString("DefaultConnection"),
+                s => s.MigrationsAssembly(Assembly.GetAssembly(typeof(MarketDbContext)).FullName)));
 
             IMapper mapper = new MapperConfiguration(cfg => cfg.AddProfile(new EntityToDTOProfile())).CreateMapper();
 
@@ -62,7 +61,6 @@ namespace Market
                 .AddScoped<IUnitOfWork, UnitOfWork>()
                 .AddSingleton(mapper)
                 .AddScoped<IProductService, ProductService>()
-                .AddScoped<IPriceService, PriceService>()
                 .AddScoped<ApplicationStart>();
 
             _serviceProvider = serviceCollection.BuildServiceProvider(true);
