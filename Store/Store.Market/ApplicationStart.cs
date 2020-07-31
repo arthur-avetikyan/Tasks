@@ -16,30 +16,29 @@ namespace Market
 
         public async Task Run()
         {
-            _productService.AddProduct(new ProductDTO
-            {
-                Category = new ProductCategoryDTO
-                {
-                    CategoryName = "Stationary",
-                    CategoryTag = "Writing"
-                },
-                ProductName = "Pen",
-                Cost = 150,
-                Stock = new StockDTO
-                {
-                    InStock = 120
-                }
+            //_productService.AddProduct(new ProductDTO
+            //{
+            //    Category = new ProductCategoryDTO
+            //    {
+            //        CategoryName = "Stationary",
+            //        CategoryTag = "Writing"
+            //    },
+            //    ProductName = "Pen",
+            //    Cost = 150,
+            //    Stock = new StockDTO
+            //    {
+            //        InStock = 120
+            //    }
+            //});
 
-            });
-
-            foreach (ProductDTO item in _productService.GetMostExpenciveProducts(1))
+            foreach (ProductInStockDTO item in _productService.GetFilteredEnumarable(2))
             {
-                Console.WriteLine(item.ProductName, item.Cost);
+                Console.WriteLine(item.ProductName, item.InStock);
             }
 
-            foreach (ProductInStockDTO item in _productService.GetFiltered())
+            foreach (ProductInStockDTO item in _productService.GetFilteredQueryable(2))
             {
-                Console.WriteLine(item.Name, item.InStock);
+                Console.WriteLine(item.ProductName, item.InStock);
             }
         }
     }

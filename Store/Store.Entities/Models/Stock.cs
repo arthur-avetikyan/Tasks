@@ -8,7 +8,7 @@ namespace Store.Entities.Models
     {
         [Key]
         public Guid Id { get; set; }
-        public int? InStock { get; set; }
+        public int InStock { get; set; }
 
         [InverseProperty("Stock")]
         public virtual Product Product { get; set; }

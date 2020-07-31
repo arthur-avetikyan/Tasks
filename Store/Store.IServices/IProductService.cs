@@ -8,12 +8,12 @@ namespace Store.IServices
     {
         IEnumerable<ProductDTO> GetAllProducts();
 
-        IEnumerable<ProductDTO> GetMostExpenciveProducts(int count);
+        IEnumerable<ProductInStockDTO> GetFilteredEnumarable(int count);
 
         void AddProduct(ProductDTO product);
 
         Task AddProducts(IEnumerable<ProductDTO> products);
 
-        IEnumerable<ProductInStockDTO> GetFiltered();
+        IEnumerable<ProductInStockDTO> GetFilteredQueryable(int count);
     }
 }

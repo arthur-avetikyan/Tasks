@@ -9,10 +9,12 @@ namespace Store.DAL.Infrastructure
 {
     public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
     {
+        private MarketDbContext _context;
         private readonly DbSet<TEntity> _dbSet;
 
         public Repository(MarketDbContext context)
         {
+            _context = context;
             _dbSet = context.Set<TEntity>();
         }
 
@@ -20,13 +22,31 @@ namespace Store.DAL.Infrastructure
 
         public async Task InsertRange(IEnumerable<TEntity> entities) => await _dbSet.AddRangeAsync(entities);
 
-        public void Update(TEntity entity) => _dbSet.Update(entity);
+        public void Update(TEntity entity)
+        {
+            _dbSet.Attach(entity);
+            _dbSet.Update(entity);
+        }
 
-        public void UpdateRange(IEnumerable<TEntity> entities) => _dbSet.UpdateRange(entities);
+        public void UpdateRange(IEnumerable<TEntity> entities)
+        {
+            _dbSet.AttachRange(entities);
+            _dbSet.UpdateRange(entities);
+        }
 
-        public void Delete(TEntity entity) => _dbSet.Remove(entity);
+        public void Delete(TEntity entity)
+        {
+            //TODO add States
+            _context.Entry(entity).State = EntityState.Deleted;
+            _dbSet.Attach(entity).State = EntityState.Deleted;
+            _dbSet.Remove(entity);
+        }
 
-        public void DeleteRange(IEnumerable<TEntity> entities) => _dbSet.RemoveRange(entities);
+        public void DeleteRange(IEnumerable<TEntity> entities)
+        {
+            _dbSet.AttachRange(entities);
+            _dbSet.RemoveRange(entities);
+        }
 
         public TEntity GetById(object id) => _dbSet.Find(id);
 
@@ -49,7 +69,6 @@ namespace Store.DAL.Infrastructure
                 return query.AsNoTracking().AsEnumerable();
         }
 
-        //provide IQueryable?
         public IQueryable<TEntity> Query(Expression<Func<TEntity, bool>> filter = null,
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null)
         {

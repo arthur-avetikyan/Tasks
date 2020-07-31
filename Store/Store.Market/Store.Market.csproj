@@ -27,7 +27,6 @@
   <ItemGroup>
     <ProjectReference Include="..\Store.DAL\Store.DAL.csproj" />
     <ProjectReference Include="..\Store.IServices\Store.IServices.csproj" />
-    <ProjectReference Include="..\Store.Mapper\Store.Mapper.csproj" />
     <ProjectReference Include="..\Store.Services\Store.Services.csproj" />
   </ItemGroup>
 

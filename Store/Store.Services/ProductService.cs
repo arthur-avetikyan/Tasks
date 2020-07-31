@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using Store.DAL.Infrastructure;
 using Store.DTO;
 using Store.Entities.Models;
@@ -39,19 +40,26 @@ namespace Store.Services
             return _mapper.Map<IEnumerable<ProductDTO>>(_productRepository.Get());
         }
 
-        public IEnumerable<ProductInStockDTO> GetFiltered()
+        public IEnumerable<ProductInStockDTO> GetFilteredQueryable(int count)
         {
-            var filtered = _productRepository.Query(w => w.Currency.ToUpper().Equals("AMD"), q => q.OrderBy(o => o.ProductName))
-                  .Select(s => new ProductInStockDTO { Name = s.ProductName, InStock = (int)s.Stock.InStock });
+            var filtered = _productRepository
+                .Query(w => w.Currency.ToUpper().Equals("AMD"), q => q.OrderBy(o => o.ProductName))
+                .Where(w => w.Stock.InStock > 0)
+                .OrderByDescending(o => o.Stock.InStock)
+                .Take(count)
+                .Select(s => new ProductInStockDTO { ProductName = s.ProductName, InStock = s.Stock.InStock });
             return filtered;
         }
 
-        public IEnumerable<ProductDTO> GetMostExpenciveProducts(int count)
+        public IEnumerable<ProductInStockDTO> GetFilteredEnumarable(int count)
         {
-
-            //to change
-            return _mapper.Map<IEnumerable<ProductDTO>>(
-                _productRepository.Get(null, o => o.OrderByDescending(p => p.Cost)).Take(count));
+            var filtered = _productRepository
+                .Get(w => w.Currency.ToUpper().Equals("AMD"), q => q.OrderBy(o => o.ProductName), i => i.Stock)
+                .Where(w => w.Stock.InStock > 0)
+                .OrderByDescending(o => o.Stock.InStock)
+                .Take(count)
+                .Select(s => new ProductInStockDTO { ProductName = s.ProductName, InStock = s.Stock.InStock });
+            return filtered;
         }
     }
 }
