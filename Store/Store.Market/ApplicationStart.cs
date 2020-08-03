@@ -31,15 +31,17 @@ namespace Market
             //    }
             //});
 
-            foreach (ProductInStockDTO item in _productService.GetFilteredEnumarable(2))
-            {
-                Console.WriteLine(item.ProductName, item.InStock);
-            }
+            _productService.GetProduct("Pen");
 
-            foreach (ProductInStockDTO item in _productService.GetFilteredQueryable(2))
-            {
-                Console.WriteLine(item.ProductName, item.InStock);
-            }
+            //foreach (ProductInStockDTO item in _productService.GetFilteredEnumarable(2))
+            //{
+            //    Console.WriteLine(item.ProductName, item.InStock);
+            //}
+
+            //foreach (ProductInStockDTO item in _productService.GetFilteredQueryable(2))
+            //{
+            //    Console.WriteLine(item.ProductName, item.InStock);
+            //}
         }
     }
 }

@@ -18,8 +18,9 @@ namespace Store.DAL.Infrastructure
 
         TEntity GetById(object id);
 
-        IEnumerable<TEntity> Get(Expression<Func<TEntity, bool>> filter = null,
+        IQueryable<TEntity> Get(Expression<Func<TEntity, bool>> filter = null,
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
+            int skip = 0, int? take = null,
             params Expression<Func<TEntity, object>>[] includes);
 
         IQueryable<TEntity> Query(Expression<Func<TEntity, bool>> filter = null,

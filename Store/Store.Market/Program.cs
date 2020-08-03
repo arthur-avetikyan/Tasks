@@ -11,6 +11,10 @@ using System;
 using System.Reflection;
 using System.Threading.Tasks;
 
+using IMapper = AutoMapper.IMapper;
+using IMyMapper = Store.IServices.IMapper;
+using MyMapper = Store.Services.Mapper;
+
 namespace Market
 {
     class Program
@@ -59,6 +63,7 @@ namespace Market
 
             serviceCollection
                 .AddScoped<IUnitOfWork, UnitOfWork>()
+                .AddSingleton<IMyMapper, MyMapper>()
                 .AddSingleton(mapper)
                 .AddScoped<IProductService, ProductService>()
                 .AddScoped<ApplicationStart>();

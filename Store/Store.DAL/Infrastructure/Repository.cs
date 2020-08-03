@@ -50,9 +50,10 @@ namespace Store.DAL.Infrastructure
 
         public TEntity GetById(object id) => _dbSet.Find(id);
 
-        public IEnumerable<TEntity> Get(
+        public IQueryable<TEntity> Get(
             Expression<Func<TEntity, bool>> filter = null,
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
+            int skip = 0, int? take = null,
             params Expression<Func<TEntity, object>>[] includes)
         {
             IQueryable<TEntity> query = _dbSet;
@@ -63,10 +64,16 @@ namespace Store.DAL.Infrastructure
             foreach (Expression<Func<TEntity, object>> include in includes)
                 query = query.Include(include);
 
-            if (orderBy != null)
-                return orderBy(query).AsNoTracking().AsEnumerable();
-            else
-                return query.AsNoTracking().AsEnumerable();
+            orderBy?.Invoke(query);
+
+            if (skip != 0)
+                query = query
+                    .Skip(skip);
+
+            if (take.HasValue)
+                query.Take(take.Value);
+
+            return query.AsNoTracking();
         }
 
         public IQueryable<TEntity> Query(Expression<Func<TEntity, bool>> filter = null,

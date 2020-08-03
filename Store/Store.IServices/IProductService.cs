@@ -15,5 +15,7 @@ namespace Store.IServices
         Task AddProducts(IEnumerable<ProductDTO> products);
 
         IEnumerable<ProductInStockDTO> GetFilteredQueryable(int count);
+
+        ProductDTO GetProduct(string name);
     }
 }
