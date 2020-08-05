@@ -19,7 +19,7 @@ namespace Store.Entities.Models
         public Guid? CategoryId { get; set; }
 
         [ForeignKey(nameof(CategoryId))]
-        [InverseProperty(nameof(ProductCategory.Product))]
+        [InverseProperty(nameof(ProductCategory.Products))]
         public virtual ProductCategory Category { get; set; }
         [ForeignKey(nameof(StockId))]
         [InverseProperty("Product")]

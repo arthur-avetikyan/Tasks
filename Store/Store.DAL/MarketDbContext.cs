@@ -50,7 +50,7 @@ namespace Store.DAL.Infrastructure
                 entity.Property(e => e.ProductName).IsUnicode(false);
 
                 entity.HasOne(d => d.Category)
-                    .WithMany(p => p.Product)
+                    .WithMany(p => p.Products)
                     .HasForeignKey(d => d.CategoryId)
                     .HasConstraintName("FK__Product__Categor__412EB0B6");
 

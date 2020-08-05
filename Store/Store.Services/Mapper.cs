@@ -3,6 +3,8 @@ using System.Reflection;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Collections;
+using System.Linq;
 
 namespace Store.Services
 {
@@ -16,28 +18,52 @@ namespace Store.Services
             TDestination lDestination = Activator.CreateInstance<TDestination>();
             try
             {
-                foreach (PropertyInfo sourcePropertyInfo in lSourceType.GetProperties())
+                foreach (PropertyInfo lSourcePropertyInfo in lSourceType.GetProperties())
                 {
-                    PropertyInfo destinationPropertyInfo = lDestinationType.GetProperty($"{sourcePropertyInfo.Name}");
+                    PropertyInfo lDestinationPropertyInfo = lDestinationType.GetProperty(lSourcePropertyInfo.Name);
 
-                    if (sourcePropertyInfo.PropertyType.IsClass && sourcePropertyInfo.PropertyType.Assembly.Equals(lSourceType.Assembly))
+                    if (lSourcePropertyInfo.PropertyType.IsClass && lSourcePropertyInfo.PropertyType.Assembly.Equals(lSourceType.Assembly))
                     {
-                        object sourceVal = sourcePropertyInfo.GetValue(source);
-                        if (sourceVal != null)
+                        object lSourceVal = lSourcePropertyInfo.GetValue(source);
+                        if (lSourceVal != null)
                         {
-                            var lValue = typeof(Mapper).GetMethod("MapContainingObject", BindingFlags.Instance | BindingFlags.NonPublic).
-                                MakeGenericMethod(destinationPropertyInfo.PropertyType, sourcePropertyInfo.PropertyType)
-                                .Invoke(this, new object[] { sourceVal, lSourceType.FullName });
+                            object lValue = typeof(Mapper).GetMethod("MapContainingObject", BindingFlags.Instance | BindingFlags.NonPublic).
+                                MakeGenericMethod(lDestinationPropertyInfo.PropertyType, lSourcePropertyInfo.PropertyType)
+                                .Invoke(this, new object[] { lSourceVal, lSourceType.FullName });
 
-                            destinationPropertyInfo.SetValue(lDestination, lValue);
+                            lDestinationPropertyInfo.SetValue(lDestination, lValue);
                             continue;
                         }
-                        destinationPropertyInfo.SetValue(lDestination, null);
+                        lDestinationPropertyInfo.SetValue(lDestination, null);
                         continue;
                     }
 
-                    if (sourcePropertyInfo.PropertyType.IsAssignableFrom(destinationPropertyInfo.PropertyType))
-                        destinationPropertyInfo.SetValue(lDestination, sourcePropertyInfo.GetValue(source));
+                    if (lSourcePropertyInfo.PropertyType.IsAssignableFrom(lDestinationPropertyInfo.PropertyType))
+                    {
+                        lDestinationPropertyInfo.SetValue(lDestination, lSourcePropertyInfo.GetValue(source));
+                        continue;
+                    }
+
+                    //if (lSourcePropertyInfo.PropertyType.GetInterface(typeof(IEnumerable<>).Name, true) != null && lSourcePropertyInfo.PropertyType != typeof(string))
+                    //{
+                    //    Type[] lDestTypeArgs = lDestinationPropertyInfo.PropertyType.GetGenericArguments();
+                    //    Type lDestTypeArgsOne = lDestinationPropertyInfo.PropertyType.GetGenericArguments().FirstOrDefault();
+                    //    Type[] lSourceTypeArgs = lSourcePropertyInfo.PropertyType.GetGenericArguments();
+
+                    //    lDestinationPropertyInfo.SetValue(lDestination, Activator.CreateInstance(typeof(List<>).MakeGenericType(lDestTypeArgs)));
+                    //    MethodInfo lAddToDestinationList = lDestinationPropertyInfo.PropertyType.GetMethod("Add");
+
+                    //    foreach (dynamic item in lSourcePropertyInfo.GetGetMethod().Invoke(source, null) as IEnumerable)
+                    //    {
+                    //        dynamic lValue = typeof(Mapper).GetMethod("MapContainingObject", BindingFlags.Instance | BindingFlags.NonPublic).
+                    //            MakeGenericMethod(lDestTypeArgs.FirstOrDefault(), lSourceTypeArgs.FirstOrDefault())
+                    //            .Invoke(this, new dynamic[] { item, lSourceType.FullName });
+
+                    //        var huhu = typeof(Activator).GetMethod("CreateInstance").MakeGenericMethod(lDestTypeArgs).Invoke(this, lValue);
+
+                    //        lAddToDestinationList.Invoke(lDestination, new dynamic[] { lValue });
+                    //    }
+                    //}
                 }
             }
             catch (Exception ex)
@@ -56,7 +82,7 @@ namespace Store.Services
             {
                 foreach (PropertyInfo sourcePropertyInfo in lSourceType.GetProperties())
                 {
-                    PropertyInfo destinationPropertyInfo = lDestinationType.GetProperty($"{sourcePropertyInfo.Name}");
+                    PropertyInfo destinationPropertyInfo = lDestinationType.GetProperty(sourcePropertyInfo.Name);
 
                     if (sourcePropertyInfo.PropertyType.IsClass
                         && sourcePropertyInfo.PropertyType.Assembly.Equals(lSourceType.Assembly)
@@ -65,11 +91,11 @@ namespace Store.Services
                         object sourceVal = sourcePropertyInfo.GetValue(source);
                         if (sourceVal != null)
                         {
-                            var lValue = typeof(Mapper).GetMethod("MapContainingObject", BindingFlags.Instance | BindingFlags.NonPublic).
+                            object lValue = typeof(Mapper).GetMethod("MapContainingObject", BindingFlags.Instance | BindingFlags.NonPublic).
                                 MakeGenericMethod(destinationPropertyInfo.PropertyType, sourcePropertyInfo.PropertyType)
                                 .Invoke(this, new object[] { sourceVal, lSourceType.FullName });
 
-                            destinationPropertyInfo.SetValue(lDestination, val);
+                            destinationPropertyInfo.SetValue(lDestination, lValue);
                             continue;
                         }
                         destinationPropertyInfo.SetValue(lDestination, null);
@@ -77,7 +103,10 @@ namespace Store.Services
                     }
 
                     if (sourcePropertyInfo.PropertyType.IsAssignableFrom(destinationPropertyInfo.PropertyType))
+                    {
                         destinationPropertyInfo.SetValue(lDestination, sourcePropertyInfo.GetValue(source));
+                        continue;
+                    }
                 }
             }
             catch (Exception ex)
@@ -85,6 +114,5 @@ namespace Store.Services
             }
             return lDestination;
         }
-
     }
 }

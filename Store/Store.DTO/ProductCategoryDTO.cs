@@ -8,6 +8,6 @@ namespace Store.DTO
         public Guid Id { get; set; }
         public string CategoryName { get; set; }
         public string CategoryTag { get; set; }
-        public virtual IEnumerable<ProductDTO> Product { get; set; }
+        public virtual ICollection<ProductDTO> Products { get; set; }
     }
 }

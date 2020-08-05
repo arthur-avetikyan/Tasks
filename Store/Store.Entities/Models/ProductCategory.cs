@@ -9,7 +9,7 @@ namespace Store.Entities.Models
     {
         public ProductCategory()
         {
-            Product = new HashSet<Product>();
+            Products = new HashSet<Product>();
         }
 
         [Key]
@@ -21,6 +21,6 @@ namespace Store.Entities.Models
         public string CategoryTag { get; set; }
 
         [InverseProperty("Category")]
-        public virtual ICollection<Product> Product { get; set; }
+        public virtual ICollection<Product> Products { get; set; }
     }
 }

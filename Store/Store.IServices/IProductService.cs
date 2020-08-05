@@ -16,6 +16,6 @@ namespace Store.IServices
 
         IEnumerable<ProductInStockDTO> GetFilteredQueryable(int count);
 
-        ProductDTO GetProduct(string name);
+        ProductCategoryDTO GetProductsInCategory();
     }
 }

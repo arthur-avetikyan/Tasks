@@ -43,6 +43,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Store.Market", "Store\Store
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Store.Services", "Store\Store.Services\Store.Services.csproj", "{FA433386-E429-44B4-84FD-AF3949579D39}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AsyncFunctions", "AsyncFunctions\AsyncFunctions.csproj", "{F9069007-5A09-4F37-85E0-2B9C75BAEBC1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -121,6 +123,10 @@ Global
 		{FA433386-E429-44B4-84FD-AF3949579D39}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FA433386-E429-44B4-84FD-AF3949579D39}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FA433386-E429-44B4-84FD-AF3949579D39}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F9069007-5A09-4F37-85E0-2B9C75BAEBC1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F9069007-5A09-4F37-85E0-2B9C75BAEBC1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F9069007-5A09-4F37-85E0-2B9C75BAEBC1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F9069007-5A09-4F37-85E0-2B9C75BAEBC1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

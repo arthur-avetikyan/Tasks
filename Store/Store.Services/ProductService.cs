@@ -18,6 +18,7 @@ namespace Store.Services
         private IMapper _mapper;
         private IMyMapper _myMapper;
         private IRepository<Product> _productRepository;
+        private IRepository<ProductCategory> _productCategoryRepository;
 
         public ProductService(IUnitOfWork uunitOfWork, IMapper mapper, IMyMapper myMapper)
         {
@@ -25,6 +26,7 @@ namespace Store.Services
             _mapper = mapper;
             _myMapper = myMapper;
             _productRepository = _unitOfWork.GetRepository<Product>();
+            _productCategoryRepository = _unitOfWork.GetRepository<ProductCategory>();
         }
 
         public void AddProduct(ProductDTO product)
@@ -67,14 +69,13 @@ namespace Store.Services
             return filtered;
         }
 
-        public ProductDTO GetProduct(string name)
+        public ProductCategoryDTO GetProductsInCategory()
         {
-            Product product = _productRepository.Get(filter: p => p.ProductName.Equals(name),
-                                                     includes: i => i.Stock)
+            ProductCategory productCategory = _productCategoryRepository.Get(includes: i => i.Products)
                                                 .FirstOrDefault();
 
-            ProductDTO mapped = _myMapper.MapTo<ProductDTO, Product>(product);
-            
+            ProductCategoryDTO mapped = _myMapper.MapTo<ProductCategoryDTO, ProductCategory>(productCategory);
+
             return mapped;
         }
     }

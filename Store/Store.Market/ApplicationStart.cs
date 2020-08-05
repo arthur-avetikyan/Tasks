@@ -31,7 +31,7 @@ namespace Market
             //    }
             //});
 
-            _productService.GetProduct("Pen");
+            _productService.GetProductsInCategory();
 
             //foreach (ProductInStockDTO item in _productService.GetFilteredEnumarable(2))
             //{
