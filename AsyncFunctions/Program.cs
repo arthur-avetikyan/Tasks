@@ -14,16 +14,17 @@ namespace AsyncFunctions
             ComputeAsync lComputeAsync = new ComputeAsync();
             ComputeSync lComputeSync = new ComputeSync();
             ulong[] lNumbers = new ulong[10];
-            int lWaitTime = 100;
+            int lWaitTime = 100000000;
             Stopwatch lStopwatch = new Stopwatch();
 
             for (ulong i = 0; i < (ulong)lNumbers.Length; i++)
                 lNumbers[i] = i + 1;
 
+            
             SyncOperations(lComputeSync, lNumbers, lStopwatch);
-            AsyncOperations(lComputeAsync, lNumbers, lStopwatch, lWaitTime);
             AsyncOperationWhenAny(lComputeAsync, lNumbers, lStopwatch, lWaitTime);
             ParallelOperations(lComputeSync, lNumbers, lStopwatch);
+            AsyncOperations(lComputeAsync, lNumbers, lStopwatch, lWaitTime);
         }
 
         private static void SyncOperations(ComputeSync lComputeSync, ulong[] lNumbers, Stopwatch lStopwatch)
@@ -40,10 +41,8 @@ namespace AsyncFunctions
         {
             CancellationTokenSource tokenSource = new CancellationTokenSource(200);
             lStopwatch.Restart();
-            foreach (ulong number in lNumbers)
-            {
-                Parallel.Invoke(() => Console.WriteLine(lComputeSync.GetFactorial(lComputeSync.GetFibonacci(number))));
-            }
+
+            Parallel.ForEach(lNumbers, number => Console.WriteLine(lComputeSync.GetFactorial(lComputeSync.GetFibonacci(number))));
             Console.WriteLine($"Parallel ops: {lStopwatch.ElapsedMilliseconds}");
         }
 
@@ -55,7 +54,7 @@ namespace AsyncFunctions
                 async () =>
                 {
                     IEnumerable<Task<ulong>> lFibonacci = from num in lNumbers
-                                                         select lComputeAsync.GetFibonacciAsync(num);
+                                                          select lComputeAsync.GetFibonacciAsync(num);
                     List<Task<ulong>> lFibonaccies = lFibonacci.ToList();
 
                     while (lFibonaccies.Count > 0)
@@ -83,7 +82,7 @@ namespace AsyncFunctions
             }
             finally
             {
-                Console.WriteLine($"Async ops: {lStopwatch.ElapsedMilliseconds}");
+                Console.WriteLine($"Async when any ops: {lStopwatch.ElapsedMilliseconds}");
             }
         }
 
