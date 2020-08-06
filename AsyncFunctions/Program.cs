@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -17,19 +16,18 @@ namespace AsyncFunctions
             int lWaitTime = 100000000;
             Stopwatch lStopwatch = new Stopwatch();
 
-            for (ulong i = 0; i < (ulong)lNumbers.Length; i++)
-                lNumbers[i] = i + 1;
+            for (int i = lNumbers.Length - 1; i >= 0; i--)
+                lNumbers[i] = (ulong)i + 1;
 
-            
             SyncOperations(lComputeSync, lNumbers, lStopwatch);
+            AsyncOperations(lComputeAsync, lNumbers, lStopwatch, lWaitTime);
             AsyncOperationWhenAny(lComputeAsync, lNumbers, lStopwatch, lWaitTime);
             ParallelOperations(lComputeSync, lNumbers, lStopwatch);
-            AsyncOperations(lComputeAsync, lNumbers, lStopwatch, lWaitTime);
         }
 
         private static void SyncOperations(ComputeSync lComputeSync, ulong[] lNumbers, Stopwatch lStopwatch)
         {
-            lStopwatch.Start();
+            lStopwatch.Restart();
             foreach (ulong number in lNumbers)
             {
                 Console.WriteLine(lComputeSync.GetFactorial(lComputeSync.GetFibonacci(number)));
@@ -50,46 +48,26 @@ namespace AsyncFunctions
         {
             CancellationTokenSource tokenSource = new CancellationTokenSource(waitTime);
             lStopwatch.Restart();
-            Task lSecond = Task.Run(
-                async () =>
-                {
-                    IEnumerable<Task<ulong>> lFibonacci = from num in lNumbers
-                                                          select lComputeAsync.GetFibonacciAsync(num);
-                    List<Task<ulong>> lFibonaccies = lFibonacci.ToList();
-
-                    while (lFibonaccies.Count > 0)
-                    {
-                        if (tokenSource.Token.IsCancellationRequested)
-                        {
-                            Console.WriteLine("Cancellation requested");
-                            tokenSource.Token.ThrowIfCancellationRequested();
-                        }
-                        Task<ulong> lCompleted = await Task.WhenAny(lFibonaccies);
-                        lFibonaccies.Remove(lCompleted);
-
-                        Task<ulong> lResult = await lCompleted
-                          .ContinueWith(x => lComputeAsync.GetFactorialAsync(x.Result));
-                        Console.WriteLine(lResult.Result);
-                    }
-                }, tokenSource.Token);
-            try
+            var lAntecedents = new List<Task<Task<ulong>>>();
+            foreach (ulong number in lNumbers)
             {
-                lSecond.Wait(tokenSource.Token);
+                lAntecedents.Add(Task.Run(() => lComputeAsync.GetFibonacciAsync(number)
+                                                                       .ContinueWith(x => lComputeAsync.GetFactorialAsync(x.Result)), tokenSource.Token));
             }
-            catch (Exception ex)
+            while (lAntecedents.Count > 0)
             {
-                Console.WriteLine(ex);
+                Task<Task<ulong>> lCompleted = Task.WhenAny(lAntecedents).Result;
+                lAntecedents.Remove(lCompleted);
+                Console.WriteLine(lCompleted.Result.Result);
             }
-            finally
-            {
-                Console.WriteLine($"Async when any ops: {lStopwatch.ElapsedMilliseconds}");
-            }
+            Console.WriteLine($"Async when any ops: {lStopwatch.ElapsedMilliseconds}");
         }
 
         private static void AsyncOperations(ComputeAsync lComputeAsync, ulong[] lNumbers, Stopwatch lStopwatch, int waitTime)
         {
             CancellationTokenSource tokenSource = new CancellationTokenSource(waitTime);
             lStopwatch.Restart();
+
             Task lFirst = Task.Run(
                               async () =>
                               {
